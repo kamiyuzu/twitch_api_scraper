@@ -19,7 +19,7 @@ defmodule TwitchApiScraperTest do
   end
 
   test "generate the twitch api json file" do
-    %{items: screapped_items} = TwitchApiScraper.generate_twitch_api_scraper()
+    %{twitch_api_scraped_items: screapped_items} = TwitchApiScraper.generate_twitch_api_scraper()
     assert length(screapped_items) > 0
   end
 end

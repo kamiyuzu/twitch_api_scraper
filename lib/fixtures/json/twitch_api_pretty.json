@@ -2058,7 +2058,7 @@
         ],
         "response_fields": [
           {
-            "description": "An array of channel-created emotes.",
+            "description": "A list of emotes that the specified channel created.",
             "field": "data",
             "type": "object array"
           },
@@ -2108,7 +2108,7 @@
             "type": "string"
           },
           {
-            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.default — Returns an animated GIF if available, otherwise, returns the static PNG.static — Indicates a static PNG file is available for this emote.",
+            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.static — Indicates a static PNG file is available for this emote.",
             "field": "format",
             "type": "string array"
           },
@@ -2189,7 +2189,7 @@
         ],
         "response_fields": [
           {
-            "description": "An array of global emotes.",
+            "description": "The list of global emotes.",
             "field": "data",
             "type": "object array"
           },
@@ -2224,7 +2224,7 @@
             "type": "string"
           },
           {
-            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.default — Returns an animated GIF if available, otherwise, returns the static PNG.static — Indicates a static PNG file is available for this emote.",
+            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.static — Indicates a static PNG file is available for this emote.",
             "field": "format",
             "type": "string array"
           },
@@ -2312,7 +2312,7 @@
         "response_fields": [],
         "response_values": [
           {
-            "description": "An array of global emotes.",
+            "description": "The list of emotes found in the specified emote sets.",
             "param": "data",
             "type": "object array"
           },
@@ -2362,7 +2362,7 @@
             "type": "string"
           },
           {
-            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.default — Returns an animated GIF if available, otherwise, returns the static PNG.static — Indicates a static PNG file is available for this emote.",
+            "description": "The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only static. But if it’s available as a static PNG and an animated GIF, the array contains static and animated. The possible formats are: animated — Indicates an animated GIF is available for this emote.static — Indicates a static PNG file is available for this emote.",
             "param": "format",
             "type": "string array"
           },
@@ -10672,95 +10672,6 @@
             "description": "",
             "method": "DELETE",
             "url": "https://api.twitch.tv/helix/videos"
-          }
-        ]
-      }
-    },
-    {
-      "category": {
-        "action": "Get Webhook Subscriptions",
-        "description": "Gets the Webhook subscriptions of an application identified by a Bearer token, in order of expiration.",
-        "id": "get-webhook-subscriptions",
-        "resource": "Webhooks"
-      },
-      "doc": {
-        "requests": {
-          "descriptions": [
-            "This gets up to 10 webhook subscriptions."
-          ],
-          "requests": [
-            "curl -X GET 'https://api.twitch.tv/helix/webhooks/subscriptions?first=10&after=eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IiJ9fQ'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'"
-          ]
-        },
-        "responses": {
-          "descriptions": [],
-          "responses": [
-            "{\"total\":12,\"data\":[{\"topic\":\"https://api.twitch.tv/helix/streams?user_id=123\",\"callback\":\"http://example.com/your_callback\",\"expires_at\":\"2018-07-30T20:00:00Z\"},{\"topic\":\"https://api.twitch.tv/helix/streams?user_id=345\",\"callback\":\"http://example.com/your_callback\",\"expires_at\":\"2018-07-30T20:03:00Z\"}],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IkFYc2laU0k2TVN3aWFTSTZNWDAifX0\"}}"
-          ]
-        }
-      },
-      "id": "get-webhook-subscriptions",
-      "request": {
-        "authentication": [
-          "App access token"
-        ],
-        "authorization": [],
-        "body_params": [],
-        "optional_body_params": [],
-        "optional_query_params": [
-          {
-            "description": "Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.",
-            "param": "after",
-            "type": "string"
-          },
-          {
-            "description": "Number of values to be returned per page. Limit: 100. Default: 20.",
-            "param": "first",
-            "type": "string"
-          }
-        ],
-        "pagination": [],
-        "query_params": [
-          {
-            "description": "None",
-            "param": "",
-            "type": ""
-          }
-        ],
-        "response_codes": [],
-        "response_fields": [
-          {
-            "description": "The callback provided for this subscription.",
-            "field": "callback",
-            "type": "string"
-          },
-          {
-            "description": "Date and time when this subscription expires. Encoded as RFC3339. The timezone is always UTC (“Z”).",
-            "field": "expires_at",
-            "type": "string"
-          },
-          {
-            "description": "A cursor value, to be used in a subsequent request to specify the starting point of the next set of results. If this is empty, you are at the last page.",
-            "field": "pagination",
-            "type": "object containing a string"
-          },
-          {
-            "description": "The topic used in the initial subscription.",
-            "field": "topic",
-            "type": "string"
-          },
-          {
-            "description": "A hint at the total number of results returned, on all pages. This is an approximation: as you page through the list, some subscriptions may expire and others may be added.",
-            "field": "total",
-            "type": "int"
-          }
-        ],
-        "response_values": [],
-        "url": [
-          {
-            "description": "",
-            "method": "GET",
-            "url": "https://api.twitch.tv/helix/webhooks/subscriptions"
           }
         ]
       }

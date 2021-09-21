@@ -19,11 +19,11 @@
 <meta property="og:site_name" content="Twitch Developers">
 <meta property="og:image" content="https://dev.twitch.tv/marketing-assets/images/TwitchDev.png">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2021-08-20T16:04:39-07:00">
+<meta property="article:published_time" content="2021-09-17T12:46:32-07:00">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@TwitchDev">
 <script type="application/ld+json">
-{"description":"Twitch Developer tools and services to integrate Twitch into your development or create interactive experience on twitch.tv.","@type":"BlogPosting","url":"https://dev.twitch.tv/api/reference/","image":"https://dev.twitch.tv/marketing-assets/images/TwitchDev.png","headline":"Reference","dateModified":"2021-08-20T16:04:39-07:00","datePublished":"2021-08-20T16:04:39-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://dev.twitch.tv/api/reference/"},"@context":"http://schema.org"}</script>
+{"description":"Twitch Developer tools and services to integrate Twitch into your development or create interactive experience on twitch.tv.","@type":"BlogPosting","url":"https://dev.twitch.tv/api/reference/","image":"https://dev.twitch.tv/marketing-assets/images/TwitchDev.png","headline":"Reference","dateModified":"2021-09-17T12:46:32-07:00","datePublished":"2021-09-17T12:46:32-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://dev.twitch.tv/api/reference/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -350,6 +350,13 @@
 
 
 
+	<dd><a class="sub-page" href="/docs/api/goals">Creator Goals</a></dd>
+
+	
+
+
+
+
 	<dd><a class="sub-page" href="/docs/api/reference">Reference</a></dd>
 
 	
@@ -442,6 +449,8 @@
 		
 			<dd><a href="#get-games">Get Games</a></dd>
 		
+			<dd><a href="#get-creator-goals">Get Creator Goals</a></dd>
+		
 			<dd><a href="#get-hype-train-events">Get Hype Train Events</a></dd>
 		
 			<dd><a href="#check-automod-status">Check AutoMod Status</a></dd>
@@ -528,28 +537,10 @@
 		
 			<dd><a href="#get-videos">Get Videos</a></dd>
 		
-			<dd><a href="#pagination-support">Pagination Support</a></dd>
-		
 			<dd><a href="#delete-videos">Delete Videos</a></dd>
 		
-			<dd><a href="#get-webhook-subscriptions">Get Webhook Subscriptions</a></dd>
-		
 	
 
-
-
-
-
-	<dd><a class="sub-page" href="/docs/api/webhooks-guide">Webhooks Guide</a></dd>
-
-	
-
-
-
-
-	<dd><a class="sub-page" href="/docs/api/webhooks-reference">Webhooks Reference</a></dd>
-
-	
 
 
 
@@ -1138,6 +1129,17 @@
 					
 						<tr>
 							
+								<td>Goals</td>
+							
+							<td><a href="#get-creator-goals">Get Creator Goals</a></td>
+							<td><p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Gets the broadcaster’s list of active goals.</p>
+</td>
+						</tr>
+					
+				
+					
+						<tr>
+							
 								<td>Hype Train</td>
 							
 							<td><a href="#get-hype-train-events">Get Hype Train Events</a></td>
@@ -1615,17 +1617,6 @@
 							
 							<td><a href="#delete-videos">Delete Videos</a></td>
 							<td><p>Deletes one or more videos. Videos are past broadcasts, Highlights, or uploads.</p>
-</td>
-						</tr>
-					
-				
-					
-						<tr>
-							
-								<td>Webhooks</td>
-							
-							<td><a href="#get-webhook-subscriptions">Get Webhook Subscriptions</a></td>
-							<td><p>Gets the Webhook subscriptions of an application identified by a Bearer token, in order of expiration.</p>
 </td>
 						</tr>
 					
@@ -4816,7 +4807,7 @@
     <tr>
       <td><code class="highlighter-rouge">data</code></td>
       <td>object array</td>
-      <td>An array of channel-created emotes.</td>
+      <td>A list of emotes that the specified channel created.</td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">id</code></td>
@@ -4866,7 +4857,7 @@
     <tr>
       <td>   <code class="highlighter-rouge">format</code></td>
       <td>string array</td>
-      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>default &mdash; Returns an animated GIF if available, otherwise, returns the static PNG.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
+      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">scale</code></td>
@@ -5025,7 +5016,7 @@ twitch api get /chat/emotes <span class="nt">-q</span> <span class="nv">broadcas
     <tr>
       <td><code class="highlighter-rouge">data</code></td>
       <td>object array</td>
-      <td>An array of global emotes.</td>
+      <td>The list of global emotes.</td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">id</code></td>
@@ -5060,7 +5051,7 @@ twitch api get /chat/emotes <span class="nt">-q</span> <span class="nv">broadcas
     <tr>
       <td>   <code class="highlighter-rouge">format</code></td>
       <td>string array</td>
-      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>default &mdash; Returns an animated GIF if available, otherwise, returns the static PNG.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
+      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">scale</code></td>
@@ -5212,7 +5203,7 @@ twitch api get /chat/emotes/global
     <tr>
       <td><code class="highlighter-rouge">data</code></td>
       <td>object array</td>
-      <td>An array of global emotes.</td>
+      <td>The list of emotes found in the specified emote sets.</td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">id</code></td>
@@ -5262,7 +5253,7 @@ twitch api get /chat/emotes/global
     <tr>
       <td>   <code class="highlighter-rouge">format</code></td>
       <td>string array</td>
-      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>default &mdash; Returns an animated GIF if available, otherwise, returns the static PNG.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
+      <td>The formats that the emote is available in. For example, if the emote is available only as a static PNG, the array contains only <code class="highlighter-rouge">static</code>. But if it’s available as a static PNG and an animated GIF, the array contains <code class="highlighter-rouge">static</code> and <code class="highlighter-rouge">animated</code>. The possible formats are: <ul><li>animated &mdash; Indicates an animated GIF is available for this emote.</li><li>static &mdash; Indicates a static PNG file is available for this emote.</li></ul></td>
     </tr>
     <tr>
       <td>   <code class="highlighter-rouge">scale</code></td>
@@ -6817,7 +6808,7 @@ Codes are redeemable alphanumeric strings tied only to the bits product. This th
     <tr>
       <td><code class="highlighter-rouge">broadcaster_id</code></td>
       <td>string</td>
-      <td>The ID of the broadcaster that owns the extension. This parameter is required if you set the <code class="highlighter-rouge">segment</code> parameter to <em>broadcaster</em> or <em>developer</em>. Do not specify this parameter if you set <code class="highlighter-rouge">segment</code> to <em>global</em>.</td>
+      <td>The ID of the broadcaster for the configuration returned. This parameter is required if you set the <code class="highlighter-rouge">segment</code> parameter to <em>broadcaster</em> or <em>developer</em>. Do not specify this parameter if you set <code class="highlighter-rouge">segment</code> to <em>global</em>.</td>
     </tr>
     <tr>
       <td><code class="highlighter-rouge">extension_id</code></td>
@@ -7043,7 +7034,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
   </thead>
   <tbody>
     <tr>
-      <td>200</td>
+      <td>204</td>
       <td>The configuration was successfully stored.</td>
     </tr>
     <tr>
@@ -7107,7 +7098,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
 
 <h3>URL</h3>
 
-<p><code class="highlighter-rouge">PUT helix/extensions/required_configuration</code></p>
+<p><code class="highlighter-rouge">PUT https://api.twitch.tv/helix/extensions/required_configuration</code></p>
 
 <h3>Pagination Support</h3>
 
@@ -7172,7 +7163,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
   </thead>
   <tbody>
     <tr>
-      <td>200</td>
+      <td>204</td>
       <td>Extension activated successfully.</td>
     </tr>
     <tr>
@@ -7303,7 +7294,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
   </thead>
   <tbody>
     <tr>
-      <td>200</td>
+      <td>204</td>
       <td>The message was published successfully.</td>
     </tr>
     <tr>
@@ -7330,7 +7321,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
 <span class="nt">-d</span> <span class="s1">'{
   "message": "hello world!",
   "broadcaster_id": "141981764",
-  "target": "broadcast"
+  "target": ["broadcast"]
 }'</span>
 </code></pre></div></div>
 
@@ -8054,7 +8045,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
     </tr>
     <tr>
       <td><code class="highlighter-rouge">subscriptions_support_level</code></td>
-      <td>object</td>
+      <td>string</td>
       <td>Indicates if the Extension can determine a user’s subscription level on the channel the Extension is installed on.</td>
     </tr>
     <tr>
@@ -8154,7 +8145,6 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Official Developers Demo"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"privacy_policy_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
       </span><span class="s2">"request_identity_link"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"required_broadcaster_abilities"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"screenshot_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="s2">"https://extensions-discovery-images.twitch.tv/pgn0bjv51epi7eaekt53tovjnc82qo/0.0.8/screenshotbdec475d-3d2f-4378-b334-941dfddc897a"</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -8450,7 +8440,6 @@ curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/heli
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Official Developer Experience Demo"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"privacy_policy_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
       </span><span class="s2">"request_identity_link"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"required_broadcaster_abilities"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"screenshot_urls"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="s2">"https://extensions-discovery-images.twitch.tv/pgn0bjv51epi7eaekt53tovjnc82qo/0.0.8/screenshotbdec475d-3d2f-4378-b334-941dfddc897a"</span><span class="w">
       </span><span class="p">],</span><span class="w">
@@ -9593,14 +9582,15 @@ twitch api get /eventsub/subscriptions
 <h3>Example Response</h3>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"box_art_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-52x72.jpg"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33214"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fortnite"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w">
-    </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"box_art_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-52x72.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33214"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fortnite"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"cursor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJiIjpudWxsLCJhIjp7IkN"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -9612,8 +9602,172 @@ twitch api get /eventsub/subscriptions
 
 	<section class="doc-content">
 		<section class="left-docs">
-			<h2 id="get-hype-train-events">Get Hype Train Events</h2>
+			<h2 id="get-creator-goals">Get Creator Goals</h2>
 			<a class="editor-link" href="cloudcannon:#content_blocks[43]" data-cms-editor-link-style="modal">&#x270E;</a>
+			
+				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Gets the broadcaster’s list of active goals. Use this to get the current progress of each goal.</p>
+
+<h3>Authorization</h3>
+
+<p>Requires a user OAuth access token with scope set to <strong>channel:read:goals</strong>. The ID in the <code class="highlighter-rouge">broadcaster_id</code> query parameter must match the user ID associated with the user OAuth token. In other words, only the broadcaster can see their goals.</p>
+
+<h3>URL</h3>
+
+<p><code class="highlighter-rouge">GET https://api.twitch.tv/helix/goals</code></p>
+
+<h3>Required Query Parameters</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">broadcaster_id</code></td>
+      <td>string</td>
+      <td>The ID of the broadcaster that created the goals.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Response Fields</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">data</code></td>
+      <td>object array</td>
+      <td>An array of creator goals. The array will contain at most one goal. The array is empty if the broadcaster hasn’t created goals.<br><br><strong>NOTE:</strong> Although the API currently supports only one goal, you should write your application to support one or more goals.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">id</code></td>
+      <td>string</td>
+      <td>An ID that uniquely identifies this goal.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">broadcaster_id</code></td>
+      <td>string</td>
+      <td>An ID that uniquely identifies the broadcaster.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">broadcaster_name</code></td>
+      <td>string</td>
+      <td>The broadcaster’s display name.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">broadcaster_login</code></td>
+      <td>string</td>
+      <td>The broadcaster’s user handle.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">type</code></td>
+      <td>string</td>
+      <td>The type of goal. Possible values are: <ul><li>follower &mdash; The goal is to increase followers.</li><li>subscription &mdash; The goal is to increase subscriptions. </li></ul></td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">description</code></td>
+      <td>string</td>
+      <td>A description of the goal, if specified. The description may contain a maximum of 40 characters.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">current_amount</code></td>
+      <td>integer</td>
+      <td>The current value.<br><br>If the goal is to increase followers, this field is set to the current number of followers. This number increases with new followers and decreases if users unfollow the channel.<br><br>For subscriptions, <code class="highlighter-rouge">current_amount</code> is increased and decreased by the points value associated with the subscription tier. For example, if a tier-two subscription is worth 2 points, <code class="highlighter-rouge">current_amount</code> is increased or decreased by 2, not 1.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">target_amount</code></td>
+      <td>integer</td>
+      <td>The goal’s target value. For example, if the broadcaster has 200 followers before creating the goal, and their goal is to double that number, this field is set to 400.</td>
+    </tr>
+    <tr>
+      <td>   <code class="highlighter-rouge">created_at</code></td>
+      <td>string</td>
+      <td>The UTC timestamp in <a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a> format, which indicates when the broadcaster created the goal.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Response Codes</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>Successfully retrieved the broadcaster’s goals.</td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td>The request was invalid. Make sure the broadcaster’s ID you specified in <code class="highlighter-rouge">broadcaster_id</code> is correct.</td>
+    </tr>
+    <tr>
+      <td>401</td>
+      <td>The caller failed authentication. Returned if the user is valid but missing the correct scopes, or if the user is valid but the broadcaster ID doesn’t match the user ID in the token.</td>
+    </tr>
+  </tbody>
+</table>
+
+			
+		</section>
+
+	
+			<section class="right-code">
+				<h3>Example Request</h3>
+
+<p>Gets a list of goals that the broadcaster created.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/helix/goals?broadcaster_id=141981764'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'</span> 
+</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Twitch CLI example that gets broadcaster's goals.</span>
+
+twitch api get /goals <span class="nt">-q</span> <span class="nv">broadcaster_id</span><span class="o">=</span>141981764 
+</code></pre></div></div>
+
+<h3>Example Response</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1woowvbkiNv8BRxEWSqmQz6Zk92"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"broadcaster_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"141981764"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"broadcaster_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TwitchDev"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"broadcaster_login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twitchdev"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"follower"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Follow goal for Helix testing"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"current_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">27062</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"target_amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-16T17:22:23Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+			</section>
+	
+	</section>
+
+	<section class="doc-content">
+		<section class="left-docs">
+			<h2 id="get-hype-train-events">Get Hype Train Events</h2>
+			<a class="editor-link" href="cloudcannon:#content_blocks[44]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<h3>Description</h3>
 
@@ -9854,7 +10008,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="check-automod-status">Check AutoMod Status</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[44]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[45]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Determines whether a string message meets the channel’s AutoMod requirements.</p>
 
@@ -10006,7 +10160,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="manage-held-automod-messages">Manage Held AutoMod Messages</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[45]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[46]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Allow or deny a message that was held for review by AutoMod.</p>
 
@@ -10139,7 +10293,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-banned-events">Get Banned Events</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[46]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[47]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns all user ban and un-ban events for a channel.</p>
 
@@ -10370,7 +10524,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-banned-users">Get Banned Users</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[47]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[48]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns all banned and timed-out users for a channel.</p>
 
@@ -10550,7 +10704,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-moderators">Get Moderators</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[48]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[49]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns all moderators in a channel. Note: This endpoint does not return the broadcaster in the response, as broadcasters are channel owners and have all permissions of moderators implicitly.</p>
 
@@ -10666,7 +10820,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-moderator-events">Get Moderator Events</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[49]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[50]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns a list of moderators or users added and removed as moderators from a channel.</p>
 
@@ -10876,7 +11030,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-polls">Get Polls</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[50]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[51]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Get information about all polls or specific polls for a Twitch channel. Poll information is available for 90 days.</p>
 
@@ -11137,7 +11291,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="create-poll">Create Poll</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[51]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[52]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Create a poll for a specific Twitch channel.</p>
 
@@ -11432,7 +11586,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="end-poll">End Poll</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[52]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[53]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> End a poll that is currently active.</p>
 
@@ -11676,7 +11830,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-predictions">Get Predictions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[53]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[54]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Get information about all Channel Points Predictions or specific Channel Points Predictions for a Twitch channel. Results are ordered by most recent, so it can be assumed that the currently active or locked Prediction will be the first item.</p>
 
@@ -11958,7 +12112,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="create-prediction">Create Prediction</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[54]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[55]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Create a Channel Points Prediction for a specific Twitch channel.</p>
 
@@ -12240,7 +12394,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="end-prediction">End Prediction</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[55]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[56]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Lock, resolve, or cancel a Channel Points Prediction. Active Predictions can be updated to be “locked,” “resolved,” or “canceled.” Locked Predictions can be updated to be “resolved” or “canceled.”</p>
 
@@ -12520,7 +12674,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-channel-stream-schedule">Get Channel Stream Schedule</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[56]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[57]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Gets all scheduled broadcasts or specific scheduled broadcasts from a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a>. Scheduled broadcasts are defined as “stream segments” in the API.</p>
 
@@ -12552,7 +12706,7 @@ twitch api get /eventsub/subscriptions
     <tr>
       <td><code class="highlighter-rouge">broadcaster_id</code></td>
       <td>string</td>
-      <td>User ID of the broadcaster who owns the channel streaming schedule. Provided <code class="highlighter-rouge">broadcaster_id</code> must match the <code class="highlighter-rouge">user_id</code> in the user OAuth token.<br><br>Maximum: 1</td>
+      <td>User ID of the broadcaster who owns the channel streaming schedule.<br><br>Maximum: 1</td>
     </tr>
   </tbody>
 </table>
@@ -12764,7 +12918,7 @@ twitch api get /eventsub/subscriptions
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-channel-icalendar">Get Channel iCalendar</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[57]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[58]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Gets all scheduled broadcasts from a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a> as an <a href="https://datatracker.ietf.org/doc/html/rfc5545" target="_blank">iCalendar</a>.</p>
 
@@ -12865,7 +13019,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="update-channel-stream-schedule">Update Channel Stream Schedule</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[58]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[59]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Update the settings for a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a>. This can be used for setting vacation details.</p>
 
@@ -12988,7 +13142,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="create-channel-stream-schedule-segment">Create Channel Stream Schedule Segment</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[59]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[60]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Create a single scheduled broadcast or a recurring scheduled broadcast for a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a>.</p>
 
@@ -13258,7 +13412,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="update-channel-stream-schedule-segment">Update Channel Stream Schedule Segment</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[60]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[61]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Update a single scheduled broadcast or a recurring scheduled broadcast for a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a>.</p>
 
@@ -13514,7 +13668,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="delete-channel-stream-schedule-segment">Delete Channel Stream Schedule Segment</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[61]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[62]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p><a href="/docs/product-lifecycle"><span class="pill pill-new">NEW</span></a> Delete a single scheduled broadcast or a recurring scheduled broadcast for a channel’s <a href="https://help.twitch.tv/s/article/channel-page-setup#Schedule" target="_blank">stream schedule</a>.</p>
 
@@ -13608,7 +13762,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="search-categories">Search Categories</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[62]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[63]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns a list of games or categories that match the query via name either entirely or partially.</p>
 
@@ -13736,7 +13890,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="search-channels">Search Channels</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[63]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[64]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Returns a list of channels (users who have streamed within the past 6 months) that match the query via channel name or description either entirely or partially. Results include both live and offline channels. Online channels will have additional metadata (<em>e.g.</em> <code class="highlighter-rouge">started_at</code>, <code class="highlighter-rouge">tag_ids</code>).</p>
 
@@ -13947,7 +14101,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-stream-key">Get Stream Key</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[64]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[65]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets the channel stream key for a user.</p>
 
@@ -14061,7 +14215,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-streams">Get Streams</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[65]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[66]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information about active streams. Streams are returned sorted by number of current viewers, in descending order. Across multiple pages of results, there may be duplicate or missing streams, as viewers join and leave streams.</p>
 
@@ -14345,7 +14499,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-followed-streams">Get Followed Streams</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[66]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[67]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information about active streams belonging to channels that the authenticated user follows. Streams are returned sorted by number of current viewers, in descending order. Across multiple pages of results, there may be duplicate or missing streams, as viewers join and leave streams.</p>
 
@@ -14537,7 +14691,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="create-stream-marker">Create Stream Marker</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[67]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[68]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Creates a marker in the stream of a user specified by user ID. A marker is an arbitrary point in a stream that the broadcaster wants to mark; <em>e.g.</em>, to easily return to later. The marker is created at the current timestamp in the live broadcast when the request is processed. Markers can be created by the stream owner or editors. The user creating the marker is identified by a Bearer token.</p>
 
@@ -14618,7 +14772,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-stream-markers">Get Stream Markers</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[68]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[69]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets a list of markers for either a specified user’s most recent stream or a specified VOD/video (stream), ordered by recency. A marker is an arbitrary point in a stream that the broadcaster wants to mark; <em>e.g.</em>, to easily return to later. The only markers returned are those created by the user identified by the Bearer token.</p>
 
@@ -14701,7 +14855,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-broadcaster-subscriptions">Get Broadcaster Subscriptions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[69]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[70]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<h3>Description</h3>
 
@@ -14896,7 +15050,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="check-user-subscription">Check User Subscription</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[70]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[71]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Checks if a specific user (<code class="highlighter-rouge">user_id</code>) is subscribed to a specific channel (<code class="highlighter-rouge">broadcaster_id</code>).</p>
 <h3>Authentication</h3>
@@ -15059,7 +15213,7 @@ END:VCALENDAR%
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-all-stream-tags">Get All Stream Tags</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[71]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[72]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets the list of all stream tags that Twitch defines. You can also filter the list by one or more tag IDs.</p>
 
@@ -15215,7 +15369,7 @@ twitch api get /tags/streams <span class="nt">-q</span> <span class="nv">tag_id<
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-stream-tags">Get Stream Tags</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[72]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[73]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets the list of stream tags that are set on the specified channel.</p>
 <h3>Authentication</h3>
@@ -15350,7 +15504,7 @@ twitch api get /tags/streams <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="replace-stream-tags">Replace Stream Tags</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[73]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[74]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Applies one or more tags to the specified channel, overwriting any existing tags. If the request does not specify tags, all existing tags are removed from the channel.</p>
 
@@ -15441,7 +15595,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-channel-teams">Get Channel Teams</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[74]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[75]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Retrieves a list of Twitch Teams of which the specified channel/broadcaster is a member.</p>
 <h3>Authentication</h3>
@@ -15613,7 +15767,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-teams">Get Teams</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[75]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[76]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information for a specific Twitch Team.</p>
 <h3>Authentication</h3>
@@ -15809,7 +15963,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-users">Get Users</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[76]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[77]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information about one or more specified Twitch users. Users are identified by optional user IDs and/or login name. If neither a user ID nor a login name is specified, the user is looked up by Bearer token.</p>
 
@@ -15974,7 +16128,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="update-user">Update User</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[77]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[78]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Updates the description of a user specified by the bearer token. Note that the description parameter is optional should other updatable parameters become available in the future. If the description parameter is not provided, no update will occur and the current user data is returned.</p>
 
@@ -16060,7 +16214,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-users-follows">Get Users Follows</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[78]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[79]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information on follow relationships between two Twitch users. This can return information like “who is qotrok following,” “who is following qotrok,” or “is user X following user Y.” Information returned is sorted in order, most recent follow first.</p>
 
@@ -16171,7 +16325,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-user-block-list">Get User Block List</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[79]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[80]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets a specified user’s block list. The list is sorted by when the block occurred in descending order (i.e. most recent block first).</p>
 <h3>Authentication</h3>
@@ -16319,7 +16473,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="block-user">Block User</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[80]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[81]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Blocks the specified user on behalf of the authenticated user.</p>
 <h3>Authentication</h3>
@@ -16425,7 +16579,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="unblock-user">Unblock User</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[81]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[82]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Unblocks the specified user on behalf of the authenticated user.</p>
 <h3>Authentication</h3>
@@ -16509,7 +16663,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-user-extensions">Get User Extensions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[82]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[83]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets a list of all extensions (both active and inactive) for a specified user, identified by a Bearer token.</p>
 
@@ -16617,7 +16771,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-user-active-extensions">Get User Active Extensions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[83]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[84]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets information about active extensions installed by a specified user, identified by a user ID or Bearer token.</p>
 
@@ -16714,7 +16868,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="update-user-extensions">Update User Extensions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[84]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[85]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Updates the activation state, extension ID, and/or version number of installed extensions for a specified user, identified by a Bearer token. If you try to activate a given extension under multiple extension types, the last write wins (and there is no guarantee of write order).</p>
 
@@ -16852,7 +17006,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="get-videos">Get Videos</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[85]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[86]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Gets video information by one or more video IDs, user ID, or game ID. For lookup by user or game, several filters are available that can be specified as query parameters.</p>
 
@@ -16862,7 +17016,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
   <li>User OAuth Token or App Access Token</li>
 </ul>
 
-<h2 id="pagination-support">Pagination Support</h2>
+<h3>Pagination Support</h3>
 
 <p>Forward pagination for requests that specify <code class="highlighter-rouge">user_id</code> or <code class="highlighter-rouge">game_id</code>. If a game is specified, a maximum of 500 results are available.</p>
 
@@ -17120,7 +17274,7 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
 	<section class="doc-content">
 		<section class="left-docs">
 			<h2 id="delete-videos">Delete Videos</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[86]" data-cms-editor-link-style="modal">&#x270E;</a>
+			<a class="editor-link" href="cloudcannon:#content_blocks[87]" data-cms-editor-link-style="modal">&#x270E;</a>
 			
 				<p>Deletes one or more videos. Videos are past broadcasts, Highlights, or uploads.</p>
 
@@ -17206,75 +17360,6 @@ twitch api put /streams/tags <span class="nt">-q</span> <span class="nv">broadca
     </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"9876"</span><span class="w">
   </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-			</section>
-	
-	</section>
-
-	<section class="doc-content">
-		<section class="left-docs">
-			<h2 id="get-webhook-subscriptions">Get Webhook Subscriptions</h2>
-			<a class="editor-link" href="cloudcannon:#content_blocks[87]" data-cms-editor-link-style="modal">&#x270E;</a>
-			
-				<p>Gets the Webhook subscriptions of an application identified by a Bearer token, in order of expiration.</p>
-
-<p>The response has a JSON payload with a <code class="highlighter-rouge">data</code> field containing an array of subscription elements and a <code class="highlighter-rouge">pagination</code> field containing information required to query for more subscriptions.</p>
-
-<h3>Authentication</h3>
-
-<p>App access token</p>
-
-<h3>URL</h3>
-
-<p><code class="highlighter-rouge">GET https://api.twitch.tv/helix/webhooks/subscriptions</code></p>
-
-<h3>Required Query Parameters</h3>
-
-<p>None</p>
-
-<h3>Optional Query Parameters</h3>
-
-<table><tbody><tr><th>Name</th><th>Type</th><th>Description</th></tr><tr><td><code>after</code></td><td>string</td><td>Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the <code>pagination</code> response field of a prior query.</td></tr><tr><td><code>first</code></td><td>string</td><td><p>Number of values to be returned per page. Limit: 100. Default: 20.</p></td></tr></tbody></table>
-
-<h3>Response Fields</h3>
-
-<table><tbody><tr><th>Field</th><th>Type</th><th>Description</th></tr><tr><td><code>callback</code></td><td>string</td><td>The callback provided for this subscription.</td></tr><tr><td><code>expires_at</code></td><td>string</td><td>Date and time when this subscription expires. Encoded as RFC3339. The timezone is always UTC (&ldquo;Z&rdquo;).</td></tr><tr><td><code>pagination</code></td><td>object containing a string</td><td>A cursor value, to be used in a subsequent request to specify the starting point of the next set of results. If this is empty, you are at the last page.</td></tr><tr><td><code>topic</code></td><td>string</td><td>The topic used in the initial subscription.</td></tr><tr><td><code>total</code></td><td>int</td><td>A hint at the total number of results returned, on all pages. This is an approximation: as you page through the list, some subscriptions may expire and others may be added.</td></tr></tbody></table>
-
-			
-		</section>
-
-	
-			<section class="right-code">
-				<h3>Example Request</h3>
-
-<p>This gets up to 10 webhook subscriptions.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET <span class="s1">'https://api.twitch.tv/helix/webhooks/subscriptions?first=10&amp;after=eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IiJ9fQ'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s1">'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s1">'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'</span>
-</code></pre></div></div>
-
-<h3>Example Response</h3>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-   </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-       </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"topic"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.twitch.tv/helix/streams?user_id=123"</span><span class="p">,</span><span class="w">
-           </span><span class="s2">"callback"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/your_callback"</span><span class="p">,</span><span class="w">
-           </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-30T20:00:00Z"</span><span class="w">
-       </span><span class="p">},</span><span class="w">
-       </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"topic"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.twitch.tv/helix/streams?user_id=345"</span><span class="p">,</span><span class="w">
-           </span><span class="s2">"callback"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://example.com/your_callback"</span><span class="p">,</span><span class="w">
-           </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-07-30T20:03:00Z"</span><span class="w">
-       </span><span class="p">}</span><span class="w">
-   </span><span class="p">],</span><span class="w">
-   </span><span class="s2">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-       </span><span class="s2">"cursor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IkFYc2laU0k2TVN3aWFTSTZNWDAifX0"</span><span class="w">
-   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
