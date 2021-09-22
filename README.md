@@ -1,4 +1,4 @@
-[![CI](https://github.com/kamiyuzu/twitch_api_scraper/workflows/CI/badge.svg)](https://github.com/kamiyuzu/twitch_api_scraper/actions/workflows/elixir.yml/badge.svg)
+[![CI](https://github.com/kamiyuzu/twitch_api_scraper/actions/workflows/elixir.yml/badge.svg)](https://github.com/kamiyuzu/twitch_api_scraper/actions/workflows/elixir.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/kamiyuzu/twitch_api_scraper/badge.svg?branch=main)](https://coveralls.io/github/kamiyuzu/twitch_api_scraper?branch=main)
 
 # TwitchApiScraper
