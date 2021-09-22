@@ -1,15 +1,13 @@
 name: Elixir CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  schedule:
+  - cron: "0 * * * 5"
 
 jobs:
   build:
 
-    name: Build and push
+    name: Test update commit and push
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +27,18 @@ jobs:
       run: mix deps.get
     - name: Run mix task
       run: ./export.sh
+    - name: Simple commit
+      if: ${{ success() }}
+      uses: zwaldowski/git-commit-action@v1
+      with:
+        working_directory: . # optional, default is .
+        commit_message: Automatic commit by github periodic action # default is Automated commit
+        author_name: GitHub Actions # optional, default is GitHub Actions
+        author_email: actions@github.com # optional, default is actions@github.com
+    - name: Push to main
+      if: ${{ success() }}
+      uses: mikeal/publish-to-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH_NAME: 'main' #optional defaults to master
+
