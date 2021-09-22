@@ -2,7 +2,7 @@ name: Elixir CI
 
 on:
   schedule:
-  - cron: "31 * * * *"
+  - cron: "0 8 * * *"
 
 jobs:
   build:
@@ -33,8 +33,8 @@ jobs:
       with:
         working_directory: . # optional, default is .
         commit_message: Automatic commit by github periodic action # default is Automated commit
-        author_name: GitHub Actions # optional, default is GitHub Actions
-        author_email: actions@github.com # optional, default is actions@github.com
+        author_name: kamiyuzu # optional, default is GitHub Actions
+        author_email: alberto.re.arr@gmail.com # optional, default is actions@github.com
     - name: Push to main
       if: ${{ success() }}
       uses: mikeal/publish-to-github-action@master
