@@ -49,3 +49,5 @@ jobs:
         prerelease: false
         files: |
           lib/fixtures/html/twitch_api.gzip
+          lib/fixtures/json/twitch_api.json
+          lib/fixtures/json/twitch_api_pretty.json
