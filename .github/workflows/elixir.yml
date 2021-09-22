@@ -2,7 +2,7 @@ name: Elixir CI
 
 on:
   schedule:
-  - cron: "5 * * * *"
+  - cron: "31 * * * *"
 
 jobs:
   build:
