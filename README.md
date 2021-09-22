@@ -1,3 +1,6 @@
+[![CI](https://github.com/kamiyuzu/twitch_api_scraper/workflows/CI/badge.svg)](https://github.com/kamiyuzu/twitch_api_scraper/actions/workflows/elixir.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/kamiyuzu/twitch_api_scraper/badge.svg?branch=main)](https://coveralls.io/github/kamiyuzu/twitch_api_scraper?branch=main)
+
 # TwitchApiScraper
 
 This projects scrapes the website for the [Twitch API](https://dev.twitch.tv/docs/api/reference). The project provides a json with a more human readable interface. API library creators can get all the methods and models without having to write them all manually.
