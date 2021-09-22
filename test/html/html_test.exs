@@ -10,8 +10,8 @@ defmodule TwitchApiScraper.Fixtures.HtmlTest do
     {HTTPoison, [],
      [
        get: fn @twitch_api_url ->
-         {:ok, html} = File.read(@twitch_api_html)
-         {:ok, %{body: html}}
+          {:ok, html} = File.open(@twitch_api_html, [:binary, :compressed], &(IO.read(&1, :all)))
+          {:ok, %{body: html}}
        end
      ]}
   ]) do

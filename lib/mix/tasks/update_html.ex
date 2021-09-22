@@ -14,6 +14,6 @@ defmodule Mix.Tasks.UpdateHtml do
     Mix.Task.run("app.start")
 
     new_html = Html.get_html_from_twitch_api()
-    File.write!(@fixture_support_path, new_html)
+    File.write!(@fixture_support_path, new_html, [:write, :compressed])
   end
 end

@@ -7,7 +7,7 @@ defmodule Mix.Tasks.UpdateHtmlTest do
 
   describe "fixture path" do
     test "checks if the fixture path is the expected one" do
-      expected_path = "test/support/twitch_api.html"
+      expected_path = "test/support/twitch_api.gzip"
       assert @fixture_path == expected_path
     end
   end
@@ -21,7 +21,8 @@ defmodule Mix.Tasks.UpdateHtmlTest do
     @tag argv: []
     test "checks if the file was updated", context do
       assert :ok = UpdateHtml.run(context[:argv])
-      assert {:ok, <<"<!doctype html" <> _>>} = File.read(@fixture_path)
+      {:ok, html} = File.open(@fixture_path, [:binary, :compressed], &(IO.read(&1, :all)))
+      assert <<"<!doctype html" <> _>> = html
     end
   end
 end

@@ -4,4 +4,4 @@ use Mix.Config
 config :logger, level: :warn
 
 config :twitch_api_scraper,
-  twitch_api_html: "test/support/twitch_api.html"
+  twitch_api_html: "test/support/twitch_api.gzip"

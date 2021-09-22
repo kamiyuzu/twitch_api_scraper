@@ -15,7 +15,8 @@ defmodule Mix.Tasks.UpdateJsonTest do
     @tag argv: []
     test "checks if the file was updated", context do
       assert :ok = UpdateJson.run(context[:argv])
-      assert {:ok, <<"{\"twitch_api_scraped_items\":[" <> _>>} = File.read(@fixture_path)
+      {:ok, html} = File.open(@fixture_path, [:binary, :compressed], &(IO.read(&1, :all)))
+      assert <<"{\"twitch_api_scraped_items\":[" <> _>> = html
     end
   end
 
@@ -28,7 +29,8 @@ defmodule Mix.Tasks.UpdateJsonTest do
     @tag argv: ["pretty"]
     test "checks if the file was updated", context do
       assert :ok = UpdateJson.run(context[:argv])
-      assert {:ok, <<"{\n  \"twitch_api_scraped_items\": [\n" <> _>>} = File.read(@fixture_pretty_json_path)
+      {:ok, json} = File.open(@fixture_pretty_json_path, [:binary, :compressed], &(IO.read(&1, :all)))
+      assert <<"{\n  \"twitch_api_scraped_items\": [\n" <> _>> = json
     end
   end
 end
