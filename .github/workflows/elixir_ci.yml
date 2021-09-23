@@ -31,13 +31,16 @@ jobs:
       run: mix format --dry-run --check-formatted || exit 1
     - name: Check tests
       run: mix test
-    - name: install hex
-      run: mix local.hex --force
-    - name: credo
-      uses: red-shirts/reviewdog-action-credo@v1
-      with:
-        github_token: ${{ secrets.github_token }}
-        reporter: reviewdog
+    - name: Check style guide
+      run: |
+        set +e
+        max_credo_score=0
+        mix credo --strict
+        score=$?
+        if [ $score -gt $max_credo_score ]; then
+          exit $score
+        fi
+        exit 0
     - name: Create persistent lookup table
       run: mix dialyzer --plt
     - name: Ensure correct typings
