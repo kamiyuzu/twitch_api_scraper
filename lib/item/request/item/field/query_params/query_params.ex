@@ -8,12 +8,14 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
   @impl Field
   @spec parse({Item.all_fields(), tuple}) :: {Item.all_fields(), any}
   def parse({field, {"p", _, [value_raw]}}) do
-    description = value_raw |> String.to_charlist |> hd
+    description = value_raw |> String.to_charlist() |> hd
+
     case description do
       160 -> {field, []}
       _ -> {field, %{description: value_raw, param: "", type: ""}}
     end
   end
+
   def parse({field, {"p", _, list}}) do
     {field, %{description: Enum.map_join(list, &parse_inner_value(&1)), param: "", type: ""}}
   end

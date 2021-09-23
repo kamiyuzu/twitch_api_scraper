@@ -8,11 +8,13 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.ResponseValues do
   @impl Field
   @spec parse({Item.all_fields(), tuple}) :: {Item.all_fields(), any}
   def parse({field, {"p", _, [value]}}) do
-    description = value |> String.to_charlist |> hd
+    description = value |> String.to_charlist() |> hd
+
     case description do
       160 -> {field, []}
     end
   end
+
   def parse({field, {"p", _, list}}) do
     {field, %{description: Enum.map_join(list, &parse_inner(&1)), param: "", type: ""}}
   end
@@ -37,7 +39,8 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.ResponseValues do
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, value, acc)
 
-      {{_, _, [{_, _, [value]}]}, _}, _ when value in ["Parameter", "Param", "Type", "Description"] ->
+      {{_, _, [{_, _, [value]}]}, _}, _
+      when value in ["Parameter", "Param", "Type", "Description"] ->
         []
 
       {{_, _, [{_, _, [value]}]}, index}, acc when is_binary(value) ->

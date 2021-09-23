@@ -8,14 +8,17 @@ defmodule TwitchApiScraper do
   def generate_twitch_api_scraper() do
     with twitch_api_categories <- Tree.Parser.scrape_twitch_api_categories(),
          twitch_api_items <- Tree.Parser.scrape_twitch_api_items() do
-        build_items(twitch_api_items, twitch_api_categories)
+      build_items(twitch_api_items, twitch_api_categories)
     end
   end
 
   defp build_items(twitch_api_items, twitch_api_categories) do
     items = Item.Parser.item_parser(twitch_api_items)
     categories = Category.Parser.parse_categories(twitch_api_categories)
-    parsed_items = items |> Enum.reduce([], &accumulate_categories(categories, &1, &2)) |> Enum.reverse()
+
+    parsed_items =
+      items |> Enum.reduce([], &accumulate_categories(categories, &1, &2)) |> Enum.reverse()
+
     %{twitch_api_scraped_items: parsed_items}
   end
 

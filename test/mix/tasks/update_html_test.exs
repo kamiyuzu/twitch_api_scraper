@@ -21,7 +21,7 @@ defmodule Mix.Tasks.UpdateHtmlTest do
     @tag argv: []
     test "checks if the file was updated", context do
       assert :ok = UpdateHtml.run(context[:argv])
-      {:ok, html} = File.open(@fixture_path, [:binary, :compressed], &(IO.read(&1, :all)))
+      {:ok, html} = File.open(@fixture_path, [:binary, :compressed], &IO.read(&1, :all))
       assert <<"<!doctype html" <> _>> = html
     end
   end

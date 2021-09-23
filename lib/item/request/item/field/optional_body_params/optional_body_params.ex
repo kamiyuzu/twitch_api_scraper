@@ -23,6 +23,7 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.OptionalBodyParams do
     |> Enum.reduce(%{}, fn
       {{_, _, [value]}, _}, _ when value in ["Name", "Type", "Parameter"] ->
         []
+
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, value, acc)
 

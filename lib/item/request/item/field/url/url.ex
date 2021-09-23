@@ -29,7 +29,9 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.Url do
     {field, parsed_response}
   end
 
-  def parse({field, {_, _, list}}), do: {field, %{description: Enum.map_join(list, &parse_description_raw/1), method: "", url: ""}}
+  def parse({field, {_, _, list}}),
+    do:
+      {field, %{description: Enum.map_join(list, &parse_description_raw/1), method: "", url: ""}}
 
   defp parse_description_raw(value) when is_binary(value), do: value
   defp parse_description_raw({_, _, [value]}) when is_binary(value), do: value
