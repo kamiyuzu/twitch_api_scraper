@@ -31,6 +31,7 @@ jobs:
       if: ${{ success() }}
       run: mix coveralls.github
       env:
+        MIX_ENV: test
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Simple commit
       if: ${{ success() }}
