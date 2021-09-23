@@ -35,7 +35,7 @@ jobs:
       run: |
         set +e
         max_credo_score=0
-        mix credo --strict
+        mix credo -C custom --strict
         score=$?
         if [ $score -gt $max_credo_score ]; then
           exit $score

@@ -5,7 +5,7 @@ defmodule TwitchApiScraper do
   alias TwitchApiScraper.Category
 
   @spec generate_twitch_api_scraper :: any
-  def generate_twitch_api_scraper() do
+  def generate_twitch_api_scraper do
     with twitch_api_categories <- Tree.Parser.scrape_twitch_api_categories(),
          twitch_api_items <- Tree.Parser.scrape_twitch_api_items() do
       build_items(twitch_api_items, twitch_api_categories)
