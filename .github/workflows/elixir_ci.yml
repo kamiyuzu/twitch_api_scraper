@@ -31,6 +31,8 @@ jobs:
       run: mix format --dry-run --check-formatted || exit 1
     - name: Check tests
       run: mix test
+    - name: install hex
+      run: mix local.hex --force
     - name: credo
       uses: red-shirts/reviewdog-action-credo@v1
       with:
