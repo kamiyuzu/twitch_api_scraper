@@ -23,13 +23,34 @@ jobs:
         path: |
           deps
           _build
+          ~/.cache/dialyzer/plts
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: |
           ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
-    - name: Run mix format
-      run: mix format
+    - name: Unlock dependencies
+      run: mix deps.unlock --check-unused
+    - name: Compile dependencies
+      run: mix compile --warnings-as-errors
+    - name: Check format
+      run: mix format --dry-run --check-formatted || exit 1
+    - name: Check tests
+      run: mix test
+    - name: Check style guide
+      run: |
+        set +e
+        max_credo_score=0
+        mix credo -C custom --strict
+        score=$?
+        if [ $score -gt $max_credo_score ]; then
+          exit $score
+        fi
+        exit 0
+    - name: Create persistent lookup table
+      run: mix dialyzer --plt
+    - name: Ensure correct typings
+      run: mix dialyzer --halt-exit-status || exit 1
     - name: Run mix task
       run: ./export.sh
     - name: Simple commit

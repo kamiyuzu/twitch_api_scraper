@@ -1,6 +1,6 @@
 name: Elixir CI
 
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   build:
@@ -27,6 +27,10 @@ jobs:
           ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
+    - name: Unlock dependencies
+      run: mix deps.unlock --check-unused
+    - name: Compile dependencies
+      run: mix compile --warnings-as-errors
     - name: Check format
       run: mix format --dry-run --check-formatted || exit 1
     - name: Check tests
