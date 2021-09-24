@@ -24,6 +24,7 @@ jobs:
           ~/.cache/dialyzer/plts
         key: ${{ runner.os }}-${{ github.ref }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: |
+          ${{ runner.os }}-${{ github.ref }}-mix-
           ${{ runner.os }}-main-mix-
     - name: Install dependencies
       run: mix deps.get
