@@ -44,13 +44,17 @@ defmodule TwitchApiScraper.Item.Request.Parser do
       )
 
     case field do
-      [{requests_value, _}] -> requests_value
+      [{requests_value, _}] ->
+        requests_value
+
       [{query_params_optional, _}, {query_params, _}] ->
         case String.contains?(value, "Optional") do
           false -> query_params
           true -> query_params_optional
         end
-      [] -> nil
+
+      [] ->
+        nil
     end
   end
 

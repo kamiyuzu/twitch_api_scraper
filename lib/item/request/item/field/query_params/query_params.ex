@@ -42,7 +42,8 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
       {{_, _, [value]}, _}, _ when value in ["Name", "Type", "Description"] ->
         []
 
-      {{_, _, [{_, _, [value]}]}, _}, _ when value in ["Parameter", "Type", "Description", "Required"] ->
+      {{_, _, [{_, _, [value]}]}, _}, _
+      when value in ["Parameter", "Type", "Description", "Required"] ->
         []
 
       {{_, _, [value]}, index}, acc when is_binary(value) ->
@@ -70,18 +71,26 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
 
   defp put_value(index, value, acc) do
     case index do
-      0 -> Map.put(acc, :param, String.trim(value))
-      1 -> Map.put(acc, :type, String.trim(value))
-      2 -> Map.put(acc, :description, String.trim(value))
-      3 -> acc
-          |> Map.put(:real_description, String.trim(value))
-          |> fix_map()
+      0 ->
+        Map.put(acc, :param, String.trim(value))
+
+      1 ->
+        Map.put(acc, :type, String.trim(value))
+
+      2 ->
+        Map.put(acc, :description, String.trim(value))
+
+      3 ->
+        acc
+        |> Map.put(:real_description, String.trim(value))
+        |> fix_map()
     end
   end
 
   defp fix_map(wrong_map) do
     type = Map.get(wrong_map, :description)
     description = Map.get(wrong_map, :real_description)
+
     wrong_map
     |> Map.put(:type, type)
     |> Map.put(:description, description)
