@@ -38,13 +38,18 @@ defmodule TwitchApiScraper.Item.Request.Parser do
     field =
       Enum.filter(
         requests_values(),
-        fn {_, [request_value]} ->
-          String.contains?(value, request_value)
+        fn {_, request_values_list} ->
+          String.contains?(value, request_values_list)
         end
       )
 
     case field do
       [{requests_value, _}] -> requests_value
+      [{query_params_optional, _}, {query_params, _}] ->
+        case String.contains?(value, "Optional") do
+          false -> query_params
+          true -> query_params_optional
+        end
       [] -> nil
     end
   end
@@ -78,7 +83,7 @@ defmodule TwitchApiScraper.Item.Request.Parser do
       optional_body_params: ["Optional Body Parameter"],
       optional_query_params: ["Optional Query Parameter"],
       pagination: ["Pagination Support"],
-      query_params: ["Required Query Parameter"],
+      query_params: ["Required Query Parameter", "Query Parameter"],
       response_codes: ["Response Codes"],
       response_fields: ["Response Field"],
       response_values: ["Return Value"],

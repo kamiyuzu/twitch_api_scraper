@@ -2869,7 +2869,18 @@
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
-        "query_params": [],
+        "query_params": [
+          {
+            "description": "The code to get the status of. Repeat this query parameter additional times to get the status of multiple codes.Ex: ?code=code1&code=code21-20 code parameters are allowed.",
+            "param": "code",
+            "type": "String"
+          },
+          {
+            "description": "Represents a numeric Twitch user ID.The user account which is going to receive the entitlement associated with the code.",
+            "param": "user_id",
+            "type": "Integer"
+          }
+        ],
         "response_codes": [],
         "response_fields": [],
         "response_values": [
@@ -3211,7 +3222,18 @@
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
-        "query_params": [],
+        "query_params": [
+          {
+            "description": "The code to redeem to the authenticated user’s account.A fifteen character (plus optional hyphen separators) alphanumeric string, e.g. ABCDE-12345-FGHIJRepeat this query parameter additional times to redeem multiple codes.Ex: ?code=code1&code=code21-20 code parameters are allowed.",
+            "param": "code",
+            "type": "String"
+          },
+          {
+            "description": "Represents a numeric Twitch user ID.The user account which is going to receive the entitlement associated with the code.",
+            "param": "user_id",
+            "type": "Integer"
+          }
+        ],
         "response_codes": [],
         "response_fields": [],
         "response_values": [
@@ -5468,7 +5490,13 @@
         "pagination": [
           "None."
         ],
-        "query_params": [],
+        "query_params": [
+          {
+            "description": "Provided broadcaster_id must match the user_id in the auth token.",
+            "param": "broadcaster_id",
+            "type": "string"
+          }
+        ],
         "response_codes": [],
         "response_fields": [],
         "response_values": [
@@ -8245,7 +8273,13 @@
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
-        "query_params": [],
+        "query_params": [
+          {
+            "description": "User ID of the broadcaster",
+            "param": "broadcaster_id",
+            "type": "string"
+          }
+        ],
         "response_codes": [
           {
             "http_code": "200",
