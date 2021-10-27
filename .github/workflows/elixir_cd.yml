@@ -60,22 +60,9 @@ jobs:
       with:
         working_directory: . # optional, default is .
         commit_message: Automatic commit by github periodic action # default is Automated commit
-        author_name: kamiyuzu # optional, default is GitHub Actions
-        author_email: alberto.re.arr@gmail.com # optional, default is actions@github.com
     - name: Push to main
       if: ${{ success() }}
       uses: mikeal/publish-to-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: 'main' #optional defaults to master
-    - name: Create release
-      if: ${{ success() }}
-      uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: false
-        files: |
-          lib/fixtures/html/twitch_api.gzip
-          lib/fixtures/json/twitch_api.json
-          lib/fixtures/json/twitch_api_pretty.json
