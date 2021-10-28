@@ -61,6 +61,7 @@ jobs:
         working_directory: . # optional, default is .
         commit_message: Automatic commit by github periodic action # default is Automated commit
     - name: Push changes
+      if: ${{ success() }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
