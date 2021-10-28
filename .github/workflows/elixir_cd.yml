@@ -2,7 +2,7 @@ name: Elixir CD
 
 on:
   schedule:
-  - cron: "0 8 * * *"
+  - cron: "0 8 * * 1"
 
 jobs:
   build:
@@ -60,9 +60,8 @@ jobs:
       with:
         working_directory: . # optional, default is .
         commit_message: Automatic commit by github periodic action # default is Automated commit
-    - name: Push to main
-      if: ${{ success() }}
-      uses: mikeal/publish-to-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH_NAME: 'main' #optional defaults to master
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: "main"
