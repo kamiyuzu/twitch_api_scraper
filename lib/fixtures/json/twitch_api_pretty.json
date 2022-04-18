@@ -6106,6 +6106,10 @@
             "meaning": "Forbidden"
           },
           {
+            "http_code": "409",
+            "meaning": "Conflict. You may not update the user’s ban state while someone else is updating the state. For example, someone else is currently banning the user or putting them in a timeout, moving the user from a timeout to a ban, or removing the user from a ban or timeout. Please retry your request."
+          },
+          {
             "http_code": "429",
             "meaning": "Too Many Requests. It is possible for too many ban requests to occur even within normal Twitch API rate limits."
           },
@@ -6196,6 +6200,10 @@
           {
             "http_code": "403",
             "meaning": "Forbidden"
+          },
+          {
+            "http_code": "409",
+            "meaning": "Conflict. You may not update the user’s ban state while someone else is updating the state. For example, someone else is currently removing the ban or timeout, or they’re moving the user from a timeout to a ban. Please retry your request."
           },
           {
             "http_code": "429",
