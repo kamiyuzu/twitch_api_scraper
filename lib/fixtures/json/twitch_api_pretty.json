@@ -7321,7 +7321,7 @@
             "type": "string"
           },
           {
-            "description": "Array of outcome objects with titles for the Prediction. Array size must be 2. The first outcome object is the “blue” outcome and the second outcome object is the “pink” outcome when viewing the Prediction on Twitch.",
+            "description": "Array of outcome objects with titles for the Prediction. Array size must be between 2 and 10 inclusively. If 2 outcomes are provided, the first outcome object is the “blue” outcome and the second outcome object is the “pink” outcome when viewing the Prediction on Twitch. If more than 2 outcomes are provided, all outcomes are blue when viewing the Prediction on Twitch.",
             "param": "outcomes",
             "type": "object[]"
           },
@@ -7352,6 +7352,10 @@
           {
             "http_code": "401",
             "meaning": "Authorization failed."
+          },
+          {
+            "http_code": "429",
+            "meaning": "Too many requests. Check the Ratelimit-Reset response header to determine when you may resume making requests."
           }
         ],
         "response_fields": [],
