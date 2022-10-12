@@ -3459,9 +3459,6 @@
         "pagination": [],
         "query_params": [
           {
-            "param": "Param"
-          },
-          {
             "description": "The code to get the status of. Repeat this query parameter additional times to get the status of multiple codes.Ex: ?code=code1&code=code21-20 code parameters are allowed.",
             "param": "code",
             "type": "String"
@@ -3807,9 +3804,6 @@
         "optional_query_params": [],
         "pagination": [],
         "query_params": [
-          {
-            "param": "Parameter"
-          },
           {
             "description": "The redemption code to redeem. To redeem multiple codes, include this parameter for each redemption code. For example, code=1234&code=5678. You may specify a maximum of 20 codes.",
             "param": "code",
@@ -5928,7 +5922,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "Maximum number of objects to return. Maximum: 100. Default: 1.",
             "param": "first",
@@ -5942,7 +5935,6 @@
         ],
         "pagination": [],
         "query_params": [
-          {},
           {
             "description": "User ID of the broadcaster. Must match the User ID in the Bearer token if User Token is used.",
             "param": "broadcaster_id",
@@ -6110,7 +6102,6 @@
           "None."
         ],
         "query_params": [
-          {},
           {
             "description": "Provided broadcaster_id must match the user_id in the auth token.",
             "param": "broadcaster_id",
@@ -6443,7 +6434,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "Filters the results and only returns a status object for users who are banned in the channel and have a matching user_id.Multiple user IDs can be provided, e.g. /moderation/banned?broadcaster_id=1&user_id=2&user_id=3Maximum: 100.",
             "param": "user_id",
@@ -6469,7 +6459,6 @@
           "Forward and reverse pagination."
         ],
         "query_params": [
-          {},
           {
             "description": "Provided broadcaster_id must match the user_id in the OAuth token.",
             "param": "broadcaster_id",
@@ -7058,7 +7047,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "Filters the results and only returns a status object for users who are moderators in this channel and have a matching user_id.Format: Repeated Query Parameter, eg. /moderation/moderators?broadcaster_id=1&user_id=2&user_id=3Maximum: 100",
             "param": "user_id",
@@ -10499,7 +10487,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.",
             "param": "after",
@@ -10523,7 +10510,6 @@
             "param": "",
             "type": ""
           },
-          {},
           {
             "description": "ID of the broadcaster from whose stream markers are returned.",
             "param": "user_id",
@@ -10632,7 +10618,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "Filters the list to include only the specified subscribers. To specify more than one subscriber, include this parameter for each subscriber. For example, &user_id=1234&user_id=5678. You may specify a maximum of 100 subscribers.",
             "param": "user_id",
@@ -10651,7 +10636,6 @@
         ],
         "pagination": [],
         "query_params": [
-          {},
           {
             "description": "User ID of the broadcaster. Must match the User ID in the Bearer token.",
             "param": "broadcaster_id",
@@ -12065,7 +12049,6 @@
         "body_params": [],
         "optional_body_params": [],
         "optional_query_params": [
-          {},
           {
             "description": "ID of the user whose installed extensions will be returned. Limit: 1.",
             "param": "user_id",
