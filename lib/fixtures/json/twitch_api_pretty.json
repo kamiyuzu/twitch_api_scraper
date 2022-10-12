@@ -568,7 +568,7 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"id\":\"74c52265-e214-48a6-91b9-23b6014e8041\",\"timestamp\":\"2019-01-28T04:15:53.325Z\",\"broadcaster_id\":\"439964613\",\"broadcaster_login\":\"chikuseuma\",\"broadcaster_name\":\"chikuseuma\",\"user_id\":\"424596340\",\"user_login\":\"quotrok\",\"user_name\":\"quotrok\",\"product_type\":\"BITS_IN_EXTENSION\",\"product_data\":{\"domain\":\"twitch.ext.uo6dggojyb8d6soh92zknwmi5ej1q2\",\"sku\":\"testSku100\",\"cost\":{\"amount\":100,\"type\":\"bits\"},\"inDevelopment\":false\"displayName\":\"Test Product 100\",\"expiration\":\"\",\"broadcast\":false}},{\"id\":\"8d303dc6-a460-4945-9f48-59c31d6735cb\",\"timestamp\":\"2019-01-18T09:10:13.397Z\",\"broadcaster_id\":\"439964613\",\"broadcaster_login\":\"chikuseuma\",\"broadcaster_name\":\"chikuseuma\"\"user_id\":\"439966926\",\"user_login\":\"liscuit\",\"user_name\":\"liscuit\",\"product_type\":\"BITS_IN_EXTENSION\",\"product_data\":{\"domain\":\"twitch.ext.uo6dggojyb8d6soh92zknwmi5ej1q2\",\"sku\":\"testSku200\",\"cost\":{\"amount\":200,\"type\":\"bits\"},\"inDevelopment\":false,\"displayName\":\"Test Product 200\",\"expiration\":\"\",\"broadcast\":false}},...],\"pagination\":{\"cursor\":\"cursorString\"}}"
+            "{\"data\":[{\"id\":\"74c52265-e214-48a6-91b9-23b6014e8041\",\"timestamp\":\"2019-01-28T04:15:53.325Z\",\"broadcaster_id\":\"439964613\",\"broadcaster_login\":\"chikuseuma\",\"broadcaster_name\":\"chikuseuma\",\"user_id\":\"424596340\",\"user_login\":\"quotrok\",\"user_name\":\"quotrok\",\"product_type\":\"BITS_IN_EXTENSION\",\"product_data\":{\"domain\":\"twitch.ext.uo6dggojyb8d6soh92zknwmi5ej1q2\",\"sku\":\"testSku100\",\"cost\":{\"amount\":100,\"type\":\"bits\"},\"inDevelopment\":false,\"displayName\":\"Test Product 100\",\"expiration\":\"\",\"broadcast\":false}},{\"id\":\"8d303dc6-a460-4945-9f48-59c31d6735cb\",\"timestamp\":\"2019-01-18T09:10:13.397Z\",\"broadcaster_id\":\"439964613\",\"broadcaster_login\":\"chikuseuma\",\"broadcaster_name\":\"chikuseuma\",\"user_id\":\"439966926\",\"user_login\":\"liscuit\",\"user_name\":\"liscuit\",\"product_type\":\"BITS_IN_EXTENSION\",\"product_data\":{\"domain\":\"twitch.ext.uo6dggojyb8d6soh92zknwmi5ej1q2\",\"sku\":\"testSku200\",\"cost\":{\"amount\":200,\"type\":\"bits\"},\"inDevelopment\":false,\"displayName\":\"Test Product 200\",\"expiration\":\"\",\"broadcast\":false}},...],\"pagination\":{\"cursor\":\"cursorString\"}}"
           ]
         }
       },
@@ -1019,7 +1019,7 @@
         "authorization": [],
         "body_params": [
           {
-            "description": "The title of the reward.",
+            "description": "The title of the reward. The title may contain a maximum of 45 characters and it must be unique amongst all of the broadcaster’s custom rewards.",
             "param": "title",
             "type": "string"
           },
@@ -1031,7 +1031,7 @@
         ],
         "optional_body_params": [
           {
-            "description": "The prompt for the viewer when redeeming the reward.",
+            "description": "The prompt for the viewer when redeeming the reward. The maximum length is 200 characters.",
             "param": "prompt",
             "type": "string"
           },
@@ -1102,7 +1102,7 @@
           },
           {
             "http_code": "400",
-            "meaning": "Bad Request: Query Parameter missing or invalid"
+            "meaning": "Bad Request: A query parameter is missing or is invalid, or the request exceeds the maximum number of rewards that you may create."
           },
           {
             "http_code": "401",
@@ -2008,6 +2008,245 @@
     },
     {
       "category": {
+        "action": "Get Charity Campaign",
+        "description": "BETA Gets information about the broadcaster’s active charity campaign.",
+        "id": "get-charity-campaign",
+        "resource": "Charity"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Gets the broadcaster’s active charity campaign."
+          ],
+          "requests": [
+            "curl -X GET 'https://api.twitch.tv/helix/charity/campaigns?broadcaster_id=123456'  \n -H'Authorization: Bearer kpvy3cjboyptmiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfn0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": [
+            "{\"data\":[{\"id\":\"123-abc-456-def\",\"broadcaster_id\":\"123456\",\"broadcaster_name\":\"SunnySideUp\",\"broadcaster_login\":\"sunnysideup\",\"charity_name\":\"Example name\",\"charity_description\":\"Example description\",\"charity_logo\":\"https://example.url/logo.png\",\"charity_website\":\"https://www.example.com\",\"current_amount\":{\"value\":86000,\"decimal_places\":2,\"currency\":\"USD\"},\"target_amount\":{\"value\":1500000,\"decimal_places\":2,\"currency\":\"USD\"}}]}"
+          ]
+        }
+      },
+      "id": "get-charity-campaign",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:read:charity scope. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster that’s actively running a charity campaign.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "200 OK",
+            "meaning": "Successfully retrieved information about the broadcaster’s active charity campaign."
+          },
+          {
+            "http_code": "400 Bad Request",
+            "meaning": "Possible reasons:The broadcaster_id query parameter is required.The broadcaster_id query parameter is not valid."
+          },
+          {
+            "http_code": "401 Unauthorized",
+            "meaning": "Possible reasons:The ID in the broadcaster_id query parameter must match the user ID in the access token.The Authorization header is required and must contain a user access token.The user access token must include the channel:read:charity scope.The OAuth token is not valid.The client ID specified in the Client-Id header must match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "403 Forbidden",
+            "meaning": "The broadcaster must be a partner or affiliate."
+          }
+        ],
+        "response_fields": [
+          {
+            "description": "A list that contains the charity campaign that the broadcaster is currently running. The array is empty if the broadcaster is not running a charity campaign; the campaign information is no longer available as soon as the campaign ends.",
+            "field": "data",
+            "type": "Object[]"
+          },
+          {
+            "description": "An ID that uniquely identifies the charity campaign.",
+            "field": "id",
+            "type": "String"
+          },
+          {
+            "description": "An ID that uniquely identifies the broadcaster that’s running the campaign.",
+            "field": "broadcaster_id",
+            "type": "String"
+          },
+          {
+            "description": "The broadcaster’s login name.",
+            "field": "broadcaster_login",
+            "type": "String"
+          },
+          {
+            "description": "The broadcaster’s display name.",
+            "field": "broadcaster_name",
+            "type": "String"
+          },
+          {
+            "description": "The charity’s name.",
+            "field": "charity_name",
+            "type": "String"
+          },
+          {
+            "description": "A description of the charity.",
+            "field": "charity_description",
+            "type": "String"
+          },
+          {
+            "description": "A URL to an image of the charity’s logo. The image’s type is PNG and its size is 100px X 100px.",
+            "field": "charity_logo",
+            "type": "String"
+          },
+          {
+            "description": "A URL to the charity’s website.",
+            "field": "charity_website",
+            "type": "String"
+          },
+          {
+            "description": "An object that contains the current amount of donations that the campaign has received.",
+            "field": "current_amount",
+            "type": "Object"
+          },
+          {
+            "description": "The monetary amount. The amount is specified in the currency’s minor unit. For example, the minor units for USD is cents, so if the amount is $5.50 USD, value is set to 550.",
+            "field": "value",
+            "type": "Integer"
+          },
+          {
+            "description": "The number of decimal places used by the currency. For example, USD uses two decimal places. Use this number to translate value from minor units to major units by using the formula:value / 10^decimal_places",
+            "field": "decimal_places",
+            "type": "Integer"
+          },
+          {
+            "description": "The ISO-4217 three-letter currency code that identifies the type of currency in value.",
+            "field": "currency",
+            "type": "String"
+          },
+          {
+            "description": "An object that contains the amount of money that the campaign is trying to raise. This field may be null if the broadcaster has not defined a target goal.",
+            "field": "target_amount",
+            "type": "Object"
+          },
+          {
+            "description": "The monetary amount. The amount is specified in the currency’s minor unit. For example, the minor units for USD is cents, so if the amount is $5.50 USD, value is set to 550.",
+            "field": "value",
+            "type": "Integer"
+          },
+          {
+            "description": "The number of decimal places used by the currency. For example, USD uses two decimal places. Use this number to translate value from minor units to major units by using the formula:value / 10^decimal_places",
+            "field": "decimal_places",
+            "type": "Integer"
+          },
+          {
+            "description": "The ISO-4217 three-letter currency code that identifies the type of currency in value.",
+            "field": "currency",
+            "type": "String"
+          }
+        ],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "GET",
+            "url": "https://api.twitch.tv/helix/charity/campaigns"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Get Chatters",
+        "description": "BETA Gets the list of users that are connected to the specified broadcaster’s chat session.",
+        "id": "get-chatters",
+        "resource": "Chat"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Gets the list of users that are connected to the specified broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X GET 'https://api.twitch.tv/helix/chat/chatters?broadcaster_id=123456&moderator_id=654321'  \n -H'Authorization: Bearer kpvy3cjboyptmiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfn0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": [
+            "{\"data\":[{\"user_login\":\"smittysmithers\"},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6NX19\"},\"total\":8}"
+          ]
+        }
+      },
+      "id": "get-chatters",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the moderator:read:chatters scope."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster whose list of chatters you want to get.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the moderator or the specified broadcaster that’s requesting the list of chatters. This ID must match the user ID associated with the user access token.The moderator must have permission to moderate the broadcaster’s chat room.",
+            "param": "moderator_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 1,000. The default is 100.",
+            "param": "first",
+            "type": "No"
+          },
+          {
+            "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read More",
+            "param": "after",
+            "type": "No"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "200 OK",
+            "meaning": "Successfully retrieved the broadcaster’s list of chatters."
+          },
+          {
+            "http_code": "400 Bad Request",
+            "meaning": "The broadcaster_id query parameter is required.The ID in the broadcaster_id query parameter is not valid.The moderator_id query parameter is required.The ID in the moderator_id query parameter is not valid."
+          },
+          {
+            "http_code": "401 Unauthorized",
+            "meaning": "The ID in the moderator_id query parameter must match the user ID in the access token.The Authorization header is required and must contain a user access token.The user access token must include the moderator:read:chatters scope.The access token is not valid.The client ID specified in the Client-Id header does not match the client ID specified in the access token."
+          },
+          {
+            "http_code": "403 Forbidden",
+            "meaning": "The user identified in the moderator_id query parameter is not one of the broadcaster's moderators."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "GET",
+            "url": "https://api.twitch.tv/helix/chat/chatters"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
         "action": "Get Channel Emotes",
         "description": "Gets all emotes that the specified Twitch channel created. For example, subscriber emotes, follower emotes, and Bits tier emotes.",
         "id": "get-channel-emotes",
@@ -2433,7 +2672,7 @@
         ],
         "query_params": [
           {
-            "description": "The broadcaster whose chat badges are being requested. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1",
+            "description": "The ID of the broadcaster whose chat badges you want to get.",
             "param": "broadcaster_id",
             "type": "string"
           }
@@ -2599,7 +2838,7 @@
     {
       "category": {
         "action": "Get Chat Settings",
-        "description": "NEW Gets the broadcaster’s chat settings.",
+        "description": "Gets the broadcaster’s chat settings.",
         "id": "get-chat-settings",
         "resource": "Chat"
       },
@@ -2667,7 +2906,7 @@
     {
       "category": {
         "action": "Update Chat Settings",
-        "description": "NEW Updates the broadcaster’s chat settings.",
+        "description": "Updates the broadcaster’s chat settings.",
         "id": "update-chat-settings",
         "resource": "Chat"
       },
@@ -2706,12 +2945,12 @@
         "pagination": [],
         "query_params": [
           {
-            "description": "The ID of the broadcaster whose chat settings you want to update. This ID must match the user ID associated with the user OAuth token.",
+            "description": "The ID of the broadcaster whose chat settings you want to update.",
             "param": "broadcaster_id",
             "type": "String"
           },
           {
-            "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to update their own settings (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
+            "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster is making the update, also set this parameter to the broadcaster’s ID.",
             "param": "moderator_id",
             "type": "String"
           }
@@ -2724,6 +2963,213 @@
             "description": "",
             "method": "PATCH",
             "url": "https://api.twitch.tv/helix/chat/settings"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Send Chat Announcement",
+        "description": "NEW Sends an announcement to the broadcaster’s chat room.",
+        "id": "send-chat-announcement",
+        "resource": "Chat"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Sends an announcement to the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X POST 'https://api.twitch.tv/helix/chat/announcements?broadcaster_id=11111&moderator_id=44444'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'  \n -H'Content-Type: application/json'  \n -d'{\"message\":\"Hello chat!\",\"color\":\"purple\"}'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "send-chat-announcement",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the moderator:manage:announcements scope. The ID in the moderator_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster that owns the chat room to send the announcement to.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of a user who has permission to moderate the broadcaster’s chat room. This ID must match the user ID in the OAuth token, which can be a moderator or the broadcaster.",
+            "param": "moderator_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully sent the announcement."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The message query parameter is required.The specified color is not valid."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the moderator:manage:announcements scope.The OAuth token is not valid.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "403Forbidden",
+            "meaning": "Possible reasons:The user is not one of the broadcaster's moderators."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "POST",
+            "url": "https://api.twitch.tv/helix/chat/announcements"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Get User Chat Color",
+        "description": "NEW Gets the color used for the user’s name in chat.",
+        "id": "get-user-chat-color",
+        "resource": "Chat"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Gets the color code used for the specified users’ chat name."
+          ],
+          "requests": [
+            "curl -X GET 'https://api.twitch.tv/helix/chat/color?user_id=11111&user_id=44444'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": [
+            "{\"data\":[{\"user_id\":\"11111\",\"user_name\":\"SpeedySpeedster1\",\"user_login\":\"speedyspeedster1\",\"color\":\"#9146FF\"},{\"user_id\":\"44444\",\"user_name\":\"SpeedySpeedster2\",\"user_login\":\"speedyspeedster2\",\"color\":\"\"}]}"
+          ]
+        }
+      },
+      "id": "get-user-chat-color",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires an app access token or user access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the user whose color you want to get. To specify more than one user, include the user_id parameter for each user to get. For example, &user_id=1234&user_id=5678. The maximum number of IDs that you may specify is 100.The response ignores duplicate IDs and IDs that aren’t found.",
+            "param": "user_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "200OK",
+            "meaning": "Successfully retrieved the users’ chat color."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in the user_id query parameter is not valid."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain an app access token or user access token.The OAuth token is not valid.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "GET",
+            "url": "https://api.twitch.tv/helix/chat/color"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Update User Chat Color",
+        "description": "NEW Updates the color used for the user’s name in chat.",
+        "id": "update-user-chat-color",
+        "resource": "Chat"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Uses a named color to change the color that the user uses for their name in chat.",
+            "Uses a color Hex code to change the color that the user uses for their name in chat."
+          ],
+          "requests": [
+            "curl -X PUT 'https://api.twitch.tv/helix/chat/color?user_id=123&color=%239146FF'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'",
+            "curl -X PUT 'https://api.twitch.tv/helix/chat/color?user_id=123&color=blue'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "update-user-chat-color",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the user:manage:chat_color scope. The ID in the user_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the user whose chat color you want to update.",
+            "param": "user_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The color to use for the user’s name in chat. All users may specify one of the following named color values.blueblue_violetcadet_bluechocolatecoraldodger_bluefirebrickgolden_rodgreenhot_pinkorange_redredsea_greenspring_greenyellow_greenTurbo and Prime users may specify a named color or a Hex color code like #9146FF. If you use a Hex color code, remember to URL encode it.",
+            "param": "color",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully updated the user’s chat color."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in the user_id query parameter is not valid.The color query parameter is required.The named color in the color query parameter is not valid.To specify a Hex color code, the user must be a Turbo or Prime user."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the user:manage:chat_color scope.The OAuth token is not valid.The ID in the user_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "PUT",
+            "url": "https://api.twitch.tv/helix/chat/color"
           }
         ]
       }
@@ -2817,8 +3263,8 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"id\":\"RandomClip1\",\"url\":\"https://clips.twitch.tv/AwkwardHelplessSalamanderSwiftRage\",\"embed_url\":\"https://clips.twitch.tv/embed?clip=RandomClip1\",\"broadcaster_id\":\"1234\",\"broadcaster_name\":\"JJ\",\"creator_id\":\"123456\",\"creator_name\":\"MrMarshall\",\"video_id\":\"1234567\",\"game_id\":\"33103\",\"language\":\"en\",\"title\":\"random1\",\"view_count\":10,\"created_at\":\"2017-11-30T22:34:18Z\",\"thumbnail_url\":\"https://clips-media-assets.twitch.tv/157589949-preview-480x272.jpg\",\"duration\":12.9},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjoiIn0\"}}",
-            "{\"data\":[{\"id\":\"AwkwardHelplessSalamanderSwiftRage\",\"url\":\"https://clips.twitch.tv/AwkwardHelplessSalamanderSwiftRage\",\"embed_url\":\"https://clips.twitch.tv/embed?clip=AwkwardHelplessSalamanderSwiftRage\",\"broadcaster_id\":\"67955580\",\"broadcaster_name\":\"ChewieMelodies\",\"creator_id\":\"53834192\",\"creator_name\":\"BlackNova03\",\"video_id\":\"205586603\",\"game_id\":\"488191\",\"language\":\"en\",\"title\":\"babymetal\",\"view_count\":10,\"created_at\":\"2017-11-30T22:34:18Z\",\"thumbnail_url\":\"https://clips-media-assets.twitch.tv/157589949-preview-480x272.jpg\",\"duration\":60}]}"
+            "{\"data\":[{\"id\":\"RandomClip1\",\"url\":\"https://clips.twitch.tv/AwkwardHelplessSalamanderSwiftRage\",\"embed_url\":\"https://clips.twitch.tv/embed?clip=RandomClip1\",\"broadcaster_id\":\"1234\",\"broadcaster_name\":\"JJ\",\"creator_id\":\"123456\",\"creator_name\":\"MrMarshall\",\"video_id\":\"\",\"game_id\":\"33103\",\"language\":\"en\",\"title\":\"random1\",\"view_count\":10,\"created_at\":\"2017-11-30T22:34:18Z\",\"thumbnail_url\":\"https://clips-media-assets.twitch.tv/157589949-preview-480x272.jpg\",\"duration\":12.9,\"vod_offset\":1957},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjoiIn0\"}}",
+            "{\"data\":[{\"id\":\"AwkwardHelplessSalamanderSwiftRage\",\"url\":\"https://clips.twitch.tv/AwkwardHelplessSalamanderSwiftRage\",\"embed_url\":\"https://clips.twitch.tv/embed?clip=AwkwardHelplessSalamanderSwiftRage\",\"broadcaster_id\":\"67955580\",\"broadcaster_name\":\"ChewieMelodies\",\"creator_id\":\"53834192\",\"creator_name\":\"BlackNova03\",\"video_id\":\"205586603\",\"game_id\":\"488191\",\"language\":\"en\",\"title\":\"babymetal\",\"view_count\":10,\"created_at\":\"2017-11-30T22:34:18Z\",\"thumbnail_url\":\"https://clips-media-assets.twitch.tv/157589949-preview-480x272.jpg\",\"duration\":60,\"vod_offset\":480}]}"
           ]
         }
       },
@@ -2918,7 +3364,7 @@
             "type": "string"
           },
           {
-            "description": "ID of the video from which the clip was created.",
+            "description": "ID of the video from which the clip was created. This field contains an empty string if the video is not available.",
             "field": "video_id",
             "type": "string"
           },
@@ -2956,6 +3402,11 @@
             "description": "Duration of the Clip in seconds (up to 0.1 precision).",
             "field": "duration",
             "type": "float"
+          },
+          {
+            "description": "The zero-based offset, in seconds, to where the clip starts in the video (VOD). Is null if the video is not available or hasn’t been created yet from the live stream. See video_id.Note that there’s a delay between when a clip is created during a broadcast and when the offset is set. During the delay period, vod_offset is null. The delay is indeterminant but is typically minutes long.",
+            "field": "vod_offset",
+            "type": "int"
           },
           {
             "description": "A cursor value, to be used in a subsequent request to specify the starting point of the next set of results.",
@@ -3253,8 +3704,7 @@
           "Client ID > Organization ID > Game ID"
         ],
         "body_params": [],
-        "optional_body_params": [],
-        "optional_query_params": [
+        "optional_body_params": [
           {
             "description": "An array of unique identifiers of the entitlements to update.Maximum: 100.",
             "param": "entitlement_ids",
@@ -3266,11 +3716,6 @@
             "type": "string"
           },
           {
-            "description": "Valid combinations of requests are:",
-            "param": "",
-            "type": ""
-          },
-          {
             "param": "App Access OAuth Token",
             "type": "All entitlements with benefits owned by your organization."
           },
@@ -3279,6 +3724,7 @@
             "type": "All entitlements owned by that user with benefits owned by your organization."
           }
         ],
+        "optional_query_params": [],
         "pagination": [],
         "query_params": [],
         "response_codes": [
@@ -3288,7 +3734,7 @@
           },
           {
             "http_code": "400",
-            "meaning": "A malformed requestion, invalide user ID, or invalid game ID."
+            "meaning": "Bad request."
           },
           {
             "http_code": "401",
@@ -3337,7 +3783,7 @@
         "requests": {
           "descriptions": [],
           "requests": [
-            "curl -X POST 'https://api.twitch.tv/helix/entitlements/codes?code=8CD5P-V3J92-2S6JY&code=PUN4G-HYFVP-MMFET'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'"
+            "curl -X POST 'https://api.twitch.tv/helix/entitlements/codes?user_id=12345&code=8CD5P-V3J92-2S6JY&code=PUN4G-HYFVP-MMFET'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'"
           ]
         },
         "responses": {
@@ -3366,7 +3812,7 @@
           {
             "description": "The ID of the user that owns the redemption code to redeem.",
             "param": "user_id",
-            "type": "Integer"
+            "type": "String"
           }
         ],
         "response_codes": [],
@@ -3405,7 +3851,7 @@
     {
       "category": {
         "action": "Get Extension Configuration Segment",
-        "description": "NEW Gets the specified configuration segment from the specified extension.",
+        "description": "Gets the specified configuration segment from the specified extension.",
         "id": "get-extension-configuration-segment",
         "resource": "Extensions"
       },
@@ -3517,7 +3963,7 @@
     {
       "category": {
         "action": "Set Extension Configuration Segment",
-        "description": "NEW Sets a single configuration segment of any type. The segment type is specified as a body parameter.",
+        "description": "Sets a single configuration segment of any type. The segment type is specified as a body parameter.",
         "id": "set-extension-configuration-segment",
         "resource": "Extensions"
       },
@@ -3604,7 +4050,7 @@
     {
       "category": {
         "action": "Set Extension Required Configuration",
-        "description": "NEW Enable activation of a specified Extension, after any required broadcaster configuration is correct.",
+        "description": "Enable activation of a specified Extension, after any required broadcaster configuration is correct.",
         "id": "set-extension-required-configuration",
         "resource": "Extensions"
       },
@@ -3612,7 +4058,7 @@
         "requests": {
           "descriptions": [],
           "requests": [
-            "curl -X PUT 'https://api.twitch.tv/helix/extensions/required_configuration?broadcaster_id=274637212'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -d'{\n  \"required_configuration\": \"RCS\",\n  \"extension_id\": \"uo6dggojyb8d6soh92zknwmi5ej1q2\",\n  \"extension_version\": \"0.0.1\"\n}'"
+            "curl -X PUT 'https://api.twitch.tv/helix/extensions/required_configuration?broadcaster_id=274637212'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d'{\n  \"required_configuration\": \"RCS\",\n  \"extension_id\": \"uo6dggojyb8d6soh92zknwmi5ej1q2\",\n  \"extension_version\": \"0.0.1\"\n}'"
           ]
         },
         "responses": {
@@ -3642,7 +4088,7 @@
           },
           {
             "description": "The version of the configuration to use with the Extension.",
-            "param": "configuration_version",
+            "param": "required_configuration",
             "type": "string"
           }
         ],
@@ -3686,7 +4132,7 @@
     {
       "category": {
         "action": "Send Extension PubSub Message",
-        "description": "NEW Forward a message using the same mechanism as the send JavaScript helper function.",
+        "description": "Forward a message using the same mechanism as the send JavaScript helper function.",
         "id": "send-extension-pubsub-message",
         "resource": "Extensions"
       },
@@ -3730,7 +4176,7 @@
             "type": "boolean"
           },
           {
-            "description": "String-encoded JSON message to be sent.",
+            "description": "String-encoded JSON message to be sent. The message is limited to a maximum of 5 KB.",
             "param": "message",
             "type": "string"
           }
@@ -3769,7 +4215,7 @@
     {
       "category": {
         "action": "Get Extension Live Channels",
-        "description": "NEW Returns one page of live channels that have installed or activated a specific Extension.",
+        "description": "Returns one page of live channels that have installed or activated a specific Extension.",
         "id": "get-extension-live-channels",
         "resource": "Extensions"
       },
@@ -3871,7 +4317,7 @@
     {
       "category": {
         "action": "Get Extension Secrets",
-        "description": "NEW Retrieves a specified Extension’s secret data consisting of a version and an array of secret objects.",
+        "description": "Retrieves a specified Extension’s secret data consisting of a version and an array of secret objects.",
         "id": "get-extension-secrets",
         "resource": "Extensions"
       },
@@ -3957,7 +4403,7 @@
     {
       "category": {
         "action": "Create Extension Secret",
-        "description": "NEW Creates a JWT signing secret for a specific Extension",
+        "description": "Creates a JWT signing secret for a specific Extension",
         "id": "create-extension-secret",
         "resource": "Extensions"
       },
@@ -3994,7 +4440,13 @@
         "pagination": [
           "Not applicable."
         ],
-        "query_params": [],
+        "query_params": [
+          {
+            "description": "The ID of the extension to apply the shared secret to.",
+            "param": "extension_id",
+            "type": "string"
+          }
+        ],
         "response_codes": [
           {
             "http_code": "200",
@@ -4049,7 +4501,7 @@
     {
       "category": {
         "action": "Send Extension Chat Message",
-        "description": "NEW Sends a specified chat message to a specified channel.",
+        "description": "Sends a specified chat message to a specified channel.",
         "id": "send-extension-chat-message",
         "resource": "Extensions"
       },
@@ -4071,7 +4523,7 @@
       "request": {
         "authentication": [],
         "authorization": [
-          "Signed JWT created by an Extension Backend Service (EBS), following the requirements documented in Signing the JWT. A signed JWT must include the role and channel_id fields documented in JWT Schema. role must be set to \"external\" and channel_id must match the broadcaster ID in the request URL."
+          "Signed JWT created by an Extension Backend Service (EBS), following the requirements documented in Signing the JWT. The signed JWT must include the role field (set to external) and the user_id field."
         ],
         "body_params": [
           {
@@ -4130,7 +4582,7 @@
     {
       "category": {
         "action": "Get Extensions",
-        "description": "NEW Gets information about your Extensions; either the current version or a specified version.",
+        "description": "Gets information about your Extensions; either the current version or a specified version.",
         "id": "get-extensions",
         "resource": "Extensions"
       },
@@ -4317,7 +4769,7 @@
     {
       "category": {
         "action": "Get Released Extensions",
-        "description": "NEW Gets information about a released Extension; either the current version or a specified version.",
+        "description": "Gets information about a released Extension; either the current version or a specified version.",
         "id": "get-released-extensions",
         "resource": "Extensions"
       },
@@ -4504,7 +4956,7 @@
     {
       "category": {
         "action": "Get Extension Bits Products",
-        "description": "NEW Gets a list of Bits products that belongs to an Extension.",
+        "description": "Gets a list of Bits products that belongs to an Extension.",
         "id": "get-extension-bits-products",
         "resource": "Extensions"
       },
@@ -4610,7 +5062,7 @@
     {
       "category": {
         "action": "Update Extension Bits Product",
-        "description": "NEW Add or update a Bits products that belongs to an Extension.",
+        "description": "Add or update a Bits products that belongs to an Extension.",
         "id": "update-extension-bits-product",
         "resource": "Extensions"
       },
@@ -4618,7 +5070,7 @@
         "requests": {
           "descriptions": [],
           "requests": [
-            "curl -X PUT 'https://api.twitch.tv/helix/bits/extensions'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -d{\"sku\": \"1010\",\n  \"cost\": {\"amount\": 990,\n    \"type\": \"bits\"},\n  \"in_development\": true,\n  \"display_name\": \"Rusty Crate 2\",\n  \"is_broadcast\": true,\n  \"expiration\": \"2021-05-18T09:10:13.397Z\"}"
+            "curl -X PUT 'https://api.twitch.tv/helix/bits/extensions'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d{\"sku\": \"1010\",\n  \"cost\": {\"amount\": 990,\n    \"type\": \"bits\"},\n  \"in_development\": true,\n  \"display_name\": \"Rusty Crate 2\",\n  \"is_broadcast\": true,\n  \"expiration\": \"2021-05-18T09:10:13.397Z\"}"
           ]
         },
         "responses": {
@@ -4818,7 +5270,7 @@
         ],
         "response_codes": [
           {
-            "http_code": "201",
+            "http_code": "202",
             "meaning": "Successfully created the subscription."
           },
           {
@@ -4836,6 +5288,10 @@
           {
             "http_code": "409",
             "meaning": "The subscription already exists."
+          },
+          {
+            "http_code": "429",
+            "meaning": "The request exceeds the number of subscriptions that you may create with the same type and condition values."
           }
         ],
         "response_fields": [
@@ -4992,7 +5448,7 @@
       "doc": {
         "requests": {
           "descriptions": [
-            "Gets a list of your EventSub subscriptions. The list is paginated and ordered by the oldest subscription first."
+            "Gets a list of EventSub subscriptions that you created. The list is paginated and ordered by the oldest subscription first."
           ],
           "requests": [
             "curl -X GET 'https://api.twitch.tv/helix/eventsub/subscriptions'  \n -H'Authorization: Bearer 2gbdx6oar67tqtcmt49t3wpcgycthx'  \n -H'Client-Id: wbmytr93xzw8zbg0p1izqyzzc5mbiz'"
@@ -5001,8 +5457,8 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"total\":2,\"data\":[{\"id\":\"26b1c993-bfcf-44d9-b876-379dacafe75a\",\"status\":\"enabled\",\"type\":\"stream.online\",\"version\":\"1\",\"condition\":{\"broadcaster_user_id\":\"1234\"},\"created_at\":\"2020-11-10T20:08:33.12345678Z\",\"transport\":{\"method\":\"webhook\",\"callback\":\"https://this-is-a-callback.com\"},\"cost\":1},{\"id\":\"35016908-41ff-33ce-7879-61b8dfc2ee16\",\"status\":\"webhook-callback-verification-pending\",\"type\":\"user.update\",\"version\":\"1\",\"condition\":{\"user_id\":\"1234\"},\"created_at\":\"2020-11-10T14:32:18.730260295Z\",\"transport\":{\"method\":\"webhook\",\"callback\":\"https://this-is-a-callback.com\"},\"cost\":0}],\"total_cost\":1,\"max_total_cost\":10000,\"pagination\":{}}",
-            "# Twitch CLI example that gets your EventSub subscriptions.\n\ntwitch api get /eventsub/subscriptions \n"
+            "{\"total\":2,\"data\":[{\"id\":\"26b1c993-bfcf-44d9-b876-379dacafe75a\",\"status\":\"enabled\",\"type\":\"stream.online\",\"version\":\"1\",\"condition\":{\"broadcaster_user_id\":\"1234\"},\"created_at\":\"2020-11-10T20:08:33.12345678Z\",\"transport\":{\"method\":\"webhook\",\"callback\":\"https://this-is-a-callback.com\"},\"cost\":1},{\"id\":\"35016908-41ff-33ce-7879-61b8dfc2ee16\",\"status\":\"webhook_callback_verification_pending\",\"type\":\"user.update\",\"version\":\"1\",\"condition\":{\"user_id\":\"1234\"},\"created_at\":\"2020-11-10T14:32:18.730260295Z\",\"transport\":{\"method\":\"webhook\",\"callback\":\"https://this-is-a-callback.com\"},\"cost\":0}],\"total_cost\":1,\"max_total_cost\":10000,\"pagination\":{}}",
+            "# Twitch CLI example that gets a list of EventSub subscriptions that you created.\n\ntwitch api get /eventsub/subscriptions \n"
           ]
         }
       },
@@ -5016,18 +5472,23 @@
         "optional_body_params": [],
         "optional_query_params": [
           {
-            "description": "Use the status and type query parameters to filter the list of subscriptions that are returned. You may specify only one filter query parameter (i.e., specify either the status or type parameter, but not both). The request fails if you specify both filter parameters.",
+            "description": "Use the status, type, and user_id query parameters to filter the list of subscriptions that are returned. The filters are mutually exclusive; the request fails if you specify more than one filter.",
             "param": "",
             "type": ""
           },
           {
-            "description": "Filter subscriptions by its status. You may specify only one status value. Valid values are: enabled — The subscription is enabled.webhook_callback_verification_pending — The subscription is pending verification of the specified callback URL.webhook_callback_verification_failed — The specified callback URL failed verification.notification_failures_exceeded — The notification delivery failure rate was too high.authorization_revoked — The authorization was revoked for one or more users specified in the Condition object.user_removed — One of the users specified in the Condition object was removed.",
+            "description": "Filter subscriptions by its status. Possible values are: enabled — The subscription is enabled.webhook_callback_verification_pending — The subscription is pending verification of the specified callback URL.webhook_callback_verification_failed — The specified callback URL failed verification.notification_failures_exceeded — The notification delivery failure rate was too high.authorization_revoked — The authorization was revoked for one or more users specified in the Condition object.user_removed — One of the users specified in the Condition object was removed.",
             "param": "status",
             "type": "string"
           },
           {
             "description": "Filter subscriptions by subscription type (e.g., channel.update). For a list of subscription types, see Subscription Types.",
             "param": "type",
+            "type": "string"
+          },
+          {
+            "description": "Filter subscriptions by user ID. The response contains subscriptions where the user ID matches a user ID that you specified in the Condition object when you created the subscription.",
+            "param": "user_id",
             "type": "string"
           },
           {
@@ -5316,7 +5777,7 @@
     {
       "category": {
         "action": "Get Creator Goals",
-        "description": "NEW Gets the broadcaster’s list of active goals.",
+        "description": "Gets the broadcaster’s list of active goals.",
         "id": "get-creator-goals",
         "resource": "Goals"
       },
@@ -5395,7 +5856,7 @@
             "type": "string"
           },
           {
-            "description": "The type of goal. Possible values are: follower — The goal is to increase followers.subscription — The goal is to increase subscriptions. This type shows the net increase or decrease in subscriptions.new_subscription — The goal is to increase subscriptions. This type shows only the net increase in subscriptions (it does not account for users that stopped subscribing since the goal's inception).",
+            "description": "The type of goal. Possible values are: follower — The goal is to increase followers.subscription — The goal is to increase subscriptions. This type shows the net increase or decrease in tier points associated with the subscriptions.subscription_count — The goal is to increase subscriptions. This type shows the net increase or decrease in the number of subscriptions.new_subscription — The goal is to increase subscriptions. This type shows only the net increase in tier points associated with the subscriptions (it does not account for users that unsubscribed since the goal started).new_subscription_count — The goal is to increase subscriptions. This type shows only the net increase in the number of subscriptions (it does not account for users that unsubscribed since the goal started).",
             "field": "type",
             "type": "string"
           },
@@ -5405,7 +5866,7 @@
             "type": "string"
           },
           {
-            "description": "The current value.If the goal is to increase followers, this field is set to the current number of followers. This number increases with new followers and decreases if users unfollow the channel.For subscriptions, current_amount is increased and decreased by the points value associated with the subscription tier. For example, if a tier-two subscription is worth 2 points, current_amount is increased or decreased by 2, not 1.For new_subscriptions, current_amount is increased by the points value associated with the subscription tier. For example, if a tier-two subscription is worth 2 points, current_amount is increased by 2, not 1.",
+            "description": "The goal’s current value.The goal’s type determines how this value is increased or decreased. If type is follower, this field is set to the broadcaster's current number of followers. This number increases with new followers and decreases when users unfollow the broadcaster.If type is subscription, this field is increased and decreased by the points value associated with the subscription tier. For example, if a tier-two subscription is worth 2 points, this field is increased or decreased by 2, not 1.If type is subscription_count, this field is increased by 1 for each new subscription and decreased by 1 for each user that unsubscribes.If type is new_subscription, this field is increased by the points value associated with the subscription tier. For example, if a tier-two subscription is worth 2 points, this field is increased by 2, not 1.If type is new_subscription_count, this field is increased by 1 for each new subscription.",
             "field": "current_amount",
             "type": "integer"
           },
@@ -5616,7 +6077,7 @@
             "Checks to see if the messages “Hello World!” and “Boooooo!” meets AutoMod requirements."
           ],
           "requests": [
-            "curl -X POST 'https://api.twitch.tv/helix/moderation/enforcements/status'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d'{\n  \"data\": [\n    {\n      \"msg_id\": \"123\",\n      \"msg_text\": \"Hello World!\",\n      \"user_id\": \"23749\"\n    },\n    {\n      \"msg_id\": \"393\",\n      \"msg_text\": \"Boooooo!\",\n      \"user_id\": \"23422\"\n    }\n  ]\n}'"
+            "curl -X POST 'https://api.twitch.tv/helix/moderation/enforcements/status?broadcaster_id=12345'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d'{\n  \"data\": [\n    {\n      \"msg_id\": \"123\",\n      \"msg_text\": \"Hello World!\"\n    },\n    {\n      \"msg_id\": \"393\",\n      \"msg_text\": \"Boooooo!\"\n    }\n  ]\n}'"
           ]
         },
         "responses": {
@@ -5647,7 +6108,36 @@
             "type": "string"
           }
         ],
-        "response_codes": [],
+        "response_codes": [
+          {
+            "http_code": "200",
+            "meaning": "Success."
+          },
+          {
+            "http_code": "400",
+            "meaning": "Bad Request."
+          },
+          {
+            "http_code": "401",
+            "meaning": "Unauthorized."
+          },
+          {
+            "http_code": "403",
+            "meaning": "Forbidden."
+          },
+          {
+            "http_code": "404",
+            "meaning": "Message not found or invalid msg_id."
+          },
+          {
+            "http_code": "429",
+            "meaning": "Too Many Requests. The channel exceeded the number of chat message checks that it may make. See Rate Limits in the endpoint’s description above."
+          },
+          {
+            "http_code": "500",
+            "meaning": "Internal Server Error"
+          }
+        ],
         "response_fields": [],
         "response_values": [
           {
@@ -5763,7 +6253,7 @@
     {
       "category": {
         "action": "Get AutoMod Settings",
-        "description": "NEW Gets the broadcaster’s AutoMod settings.",
+        "description": "Gets the broadcaster’s AutoMod settings.",
         "id": "get-automod-settings",
         "resource": "Moderation"
       },
@@ -5834,7 +6324,7 @@
     {
       "category": {
         "action": "Update AutoMod Settings",
-        "description": "NEW Updates the broadcaster’s AutoMod settings.",
+        "description": "Updates the broadcaster’s AutoMod settings.",
         "id": "update-automod-settings",
         "resource": "Moderation"
       },
@@ -5930,7 +6420,7 @@
             "Shows that users glowillig and quotrok have been banned."
           ],
           "responses": [
-            "{\"data\":[{\"user_id\":\"423374343\",\"user_login\":\"glowillig\",\"user_name\":\"glowillig\",\"expires_at\":\"2022-03-15T02:00:28Z\",\"reason\":\"Does not like pineapple on pizza.\",\"moderator_id\":\"141981764\",\"moderator_login\":\"twitchdev\",\"moderator_name\":\"TwitchDev\"},{\"user_id\":\"424596340\",\"user_login\":\"quotrok\",\"user_name\":\"quotrok\",\"expires_at\":\"2022-08-07T02:07:55Z\",\"reason\":\"Inappropriate words.\",\"moderator_id\":\"141981764\",\"moderator_login\":\"twitchdev\",\"moderator_name\":\"TwitchDev\"},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IjEwMDQ3MzA2NDo4NjQwNjU3MToxSVZCVDFKMnY5M1BTOXh3d1E0dUdXMkJOMFcifX0\"}}"
+            "{\"data\":[{\"user_id\":\"423374343\",\"user_login\":\"glowillig\",\"user_name\":\"glowillig\",\"expires_at\":\"2022-03-15T02:00:28Z\",\"created_at\":\"2022-03-15T01:30:28Z\",\"reason\":\"Does not like pineapple on pizza.\",\"moderator_id\":\"141981764\",\"moderator_login\":\"twitchdev\",\"moderator_name\":\"TwitchDev\"},{\"user_id\":\"424596340\",\"user_login\":\"quotrok\",\"user_name\":\"quotrok\",\"expires_at\":\"2022-08-07T02:07:55Z\",\"created_at\":\"2022-08-07T02:02:55Z\",\"reason\":\"Inappropriate words.\",\"moderator_id\":\"141981764\",\"moderator_login\":\"twitchdev\",\"moderator_name\":\"TwitchDev\"},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7IkN1cnNvciI6IjEwMDQ3MzA2NDo4NjQwNjU3MToxSVZCVDFKMnY5M1BTOXh3d1E0dUdXMkJOMFcifX0\"}}"
           ]
         }
       },
@@ -5945,7 +6435,7 @@
         "optional_body_params": [],
         "optional_query_params": [
           {
-            "description": "Filters the results and only returns a status object for users who are banned in the channel and have a matching user_id.Multiple user IDs can be provided, e.g. /moderation/banned/events?broadcaster_id=1&user_id=2&user_id=3Maximum: 100.",
+            "description": "Filters the results and only returns a status object for users who are banned in the channel and have a matching user_id.Multiple user IDs can be provided, e.g. /moderation/banned?broadcaster_id=1&user_id=2&user_id=3Maximum: 100.",
             "param": "user_id",
             "type": "string"
           },
@@ -5994,8 +6484,13 @@
             "type": "string"
           },
           {
-            "description": "Timestamp of the ban expiration. Set to empty string if the ban is permanent.",
+            "description": "The UTC date and time (in RFC3999 format) when the timeout expires, or an empty string if the user is permanently banned.",
             "param": "expires_at",
+            "type": "string"
+          },
+          {
+            "description": "The UTC date and time (in RFC3999 format) when the ban was created.",
+            "param": "created_at",
             "type": "string"
           },
           {
@@ -6036,7 +6531,7 @@
     {
       "category": {
         "action": "Ban User",
-        "description": "NEW Bans a user from participating in a broadcaster’s chat room, or puts them in a timeout.",
+        "description": "Bans a user from participating in a broadcaster’s chat room, or puts them in a timeout.",
         "id": "ban-user",
         "resource": "Moderation"
       },
@@ -6058,8 +6553,8 @@
           "descriptions": [],
           "responses": [
             "{\"error\":\"Bad Request\",\"status\":400,\"message\":\"user is already banned\"}",
-            "{\"data\":[{\"broadcaster_id\":\"1234\",\"moderator_id\":\"5678\",\"user_id\":\"9876\",\"end_time\":\"2021-09-28T19:22:31Z\"}]}",
-            "{\"data\":[{\"broadcaster_id\":\"1234\",\"moderator_id\":\"5678\",\"user_id\":\"9876\",\"end_time\":null}]}",
+            "{\"data\":[{\"broadcaster_id\":\"1234\",\"moderator_id\":\"5678\",\"user_id\":\"9876\",\"created_at\":\"2021-09-28T19:27:31Z\",\"end_time\":\"2021-09-28T19:22:31Z\"}]}",
+            "{\"data\":[{\"broadcaster_id\":\"1234\",\"moderator_id\":\"5678\",\"user_id\":\"9876\",\"created_at\":\"2021-09-28T18:22:31Z\",\"end_time\":null}]}",
             "duration"
           ]
         }
@@ -6132,7 +6627,7 @@
     {
       "category": {
         "action": "Unban User",
-        "description": "NEW Removes the ban or timeout that was placed on the specified user.",
+        "description": "Removes the ban or timeout that was placed on the specified user.",
         "id": "unban-user",
         "resource": "Moderation"
       },
@@ -6228,7 +6723,7 @@
     {
       "category": {
         "action": "Get Blocked Terms",
-        "description": "NEW Gets the broadcaster’s list of non-private, blocked words or phrases.",
+        "description": "Gets the broadcaster’s list of non-private, blocked words or phrases.",
         "id": "get-blocked-terms",
         "resource": "Moderation"
       },
@@ -6310,7 +6805,7 @@
     {
       "category": {
         "action": "Add Blocked Term",
-        "description": "NEW Adds a word or phrase to the broadcaster’s list of blocked terms.",
+        "description": "Adds a word or phrase to the broadcaster’s list of blocked terms.",
         "id": "add-blocked-term",
         "resource": "Moderation"
       },
@@ -6372,7 +6867,7 @@
     {
       "category": {
         "action": "Remove Blocked Term",
-        "description": "NEW Removes the word or phrase that the broadcaster is blocking users from using in their chat room.",
+        "description": "Removes the word or phrase that the broadcaster is blocking users from using in their chat room.",
         "id": "remove-blocked-term",
         "resource": "Moderation"
       },
@@ -6411,17 +6906,12 @@
             "type": "String"
           },
           {
-            "description": "The ID of the broadcaster that owns the list of blocked terms.",
-            "param": "broadcaster_id",
-            "type": "String"
-          },
-          {
             "description": "The ID of the blocked term you want to delete.",
             "param": "id",
             "type": "String"
           },
           {
-            "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to delete the blocked term (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
+            "description": "The ID of the broadcaster or a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.",
             "param": "moderator_id",
             "type": "String"
           }
@@ -6434,6 +6924,93 @@
             "description": "",
             "method": "DELETE",
             "url": "https://api.twitch.tv/helix/moderation/blocked_terms"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Delete Chat Messages",
+        "description": "NEW Removes a single chat message or all chat messages from the broadcaster’s chat room.",
+        "id": "delete-chat-messages",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Removes all messages from the broadcaster’s chat room (doesn’t include the message_id query parameter).",
+            "Removes the specified message from the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X DELETE 'https://api.twitch.tv/helix/moderation/chat?broadcaster_id=11111&moderator_id=44444&message_id=abc-123-def'\\ -H'Authorization: Bearer f4otqljtpbpg24v41v9gechs4yvwy'  \n -H'Client-Id: t214nt8z1rdtbj69hyarjvh5mi6fh'",
+            "curl -X DELETE 'https://api.twitch.tv/helix/moderation/chat?broadcaster_id=11111&moderator_id=44444'  \n -H'Authorization: Bearer f4otqljtpbpg24v41v9gechs4yvwy'  \n -H'Client-Id: t214nt8z1rdtbj69hyarjvh5mi6fh'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "delete-chat-messages",
+      "request": {
+        "authentication": [
+          "Requires a user access token that includes the ",
+          "moderator:manage:chat_messages",
+          " scope. The ID in the ",
+          "moderator_id",
+          " query parameter must match the user ID in the access token."
+        ],
+        "authorization": [],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster that owns the chat room to remove messages from.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID in the OAuth token. If the broadcaster wants to remove messages themselves, set this parameter to the broadcaster’s ID, too.",
+            "param": "moderator_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the message to remove. The id tag in the PRIVMSG contains the message’s ID (see PRIVMSG Tags). Restrictions:The message must have been created within the last 6 hours.The message must not belong to the broadcaster.The message must not belong to another moderator.If not specified, the request removes all messages in the broadcaster’s chat room.",
+            "param": "message_id",
+            "type": "No"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully removed the specified messages."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:You may not delete another moderator's messages.You may not delete the broadcaster's messages."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the moderator:manage:chat_messages scope.The OAuth token is not valid.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "403Forbidden",
+            "meaning": "Possible reasons:The user is not one of the broadcaster's moderators."
+          },
+          {
+            "http_code": "404Not Found",
+            "meaning": "Possible reasons:The ID in message_id was not found.The specified message was created more than 6 hours ago."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "DELETE",
+            "url": "https://api.twitch.tv/helix/moderation/chat"
           }
         ]
       }
@@ -6465,7 +7042,7 @@
       "request": {
         "authentication": [],
         "authorization": [
-          "OAuth token requiredRequired scope: moderation:read"
+          "Requires a user access token that includes the moderation:read scope. If your app also adds and removes moderators, you can use the channel:manage:moderators scope instead. The ID in the broadcaster_id query parameter must match the user ID in the access token."
         ],
         "body_params": [],
         "optional_body_params": [],
@@ -6525,6 +7102,396 @@
             "description": "",
             "method": "GET",
             "url": "https://api.twitch.tv/helix/moderation/moderators"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Add Channel Moderator",
+        "description": "NEW Adds a moderator to the broadcaster’s chat room.",
+        "id": "add-channel-moderator",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Adds a moderator to the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X POST 'https://api.twitch.tv/helix/moderation/moderators?broadcaster_id=11111&user_id=44444'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "add-channel-moderator",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:moderators scope. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster that owns the chat room.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the user to add as a moderator in the broadcaster’s chat room.",
+            "param": "user_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully added the moderator."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in broadcaster_id was not found.The ID in user_id was not found.The user in user_id is already a moderator in the broadcaster's chat room.The user in user_id may not be a moderator because they're banned from the channel."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the channel:manage:moderators scope.The OAuth token is not valid.The ID in the broadcaster_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "422Unprocessable Entity",
+            "meaning": "The user in user_id is a VIP. To make them a moderator, you must first remove them as a VIP (see Remove Channel VIP)."
+          },
+          {
+            "http_code": "429Too Many Requests",
+            "meaning": "The channel has exceeded the number of add-moderator requests they may make within a 10 seconds period. See Rate Limits for this endpoint above."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "POST",
+            "url": "https://api.twitch.tv/helix/moderation/moderators"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Remove Channel Moderator",
+        "description": "NEW Removes a moderator from the broadcaster’s chat room.",
+        "id": "remove-channel-moderator",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Removes a moderator from the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X DELETE 'https://api.twitch.tv/helix/moderation/moderators?broadcaster_id=11111&user_id=44444'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "remove-channel-moderator",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:moderators scope. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the broadcaster that owns the chat room.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the user to remove as a moderator from the broadcaster’s chat room.",
+            "param": "user_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully removed the moderator."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in broadcaster_id was not found.The ID in user_id was not found.The user in user_id is not a moderator in the broadcaster's chat room."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the channel:manage:moderators scope.The OAuth token is not valid.The ID in the broadcaster_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "429Too Many Requests",
+            "meaning": "The channel has exceeded the number of remove-moderator requests they may make within a 10 seconds period. See Rate Limits for this endpoint above."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "DELETE",
+            "url": "https://api.twitch.tv/helix/moderation/moderators"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Get VIPs",
+        "description": "NEW Gets a list of the channel’s VIPs.",
+        "id": "get-vips",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Gets a list of the broadcaster’s VIPs",
+            "Gets a filtered list of the broadcaster’s VIPs. The list in the response contains only those users that are VIPs."
+          ],
+          "requests": [
+            "curl -X GET 'https://api.twitch.tv/helix/channels/vips?broadcaster_id=123&user_id=456&user_id=678'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'",
+            "curl -X GET 'https://api.twitch.tv/helix/channels/vips?broadcaster_id=123'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": [
+            "{\"data\":[{\"user_id\":\"11111\",\"user_name\":\"UserDisplayName\",\"user_login\":\"userloginname\"},...],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6NX19\"}}"
+          ]
+        }
+      },
+      "id": "get-vips",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:read:vips scope. If your app also adds and removes VIP status, you can use the channel:manage:vips scope instead. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "Filters the list for specific VIPs. To specify more than one user, include the user_id parameter for each user to get. For example, &user_id=1234&user_id=5678. The maximum number of IDs that you may specify is 100. Ignores those users in the list that aren’t VIPs.",
+            "param": "user_id",
+            "type": "No"
+          },
+          {
+            "description": "The ID of the broadcaster whose list of VIPs you want to get.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 100. The default is 20.",
+            "param": "first",
+            "type": "No"
+          },
+          {
+            "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read more.",
+            "param": "after",
+            "type": "No"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully retrieved the broadcaster’s list of VIPs."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The broadcaster_id query parameter is required.The number of user_id query parameters exceeds the maximum allowed."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the channel:read:vips scope.The OAuth token is not valid.The ID in the broadcaster_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "GET",
+            "url": "https://api.twitch.tv/helix/channels/vips"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Add Channel VIP",
+        "description": "NEW Adds a VIP to the broadcaster’s chat room.",
+        "id": "add-channel-vip",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Adds a VIP to the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X POST 'https://api.twitch.tv/helix/channels/vips?broadcaster_id=123&user_id=456'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "add-channel-vip",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:vips scope. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the user to add as a VIP in the broadcaster’s chat room.",
+            "param": "user_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the broadcaster that’s granting VIP status to the user.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully added the VIP."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The user in the user_id query parameter is blocked from the broadcaster's channel.The ID in the user_id query parameter is not valid."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the channel:manage:vips scope.The OAuth token is not valid.The ID in the broadcaster_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "409Conflict",
+            "meaning": "The broadcaster doesn’t have available VIP slots. Read more"
+          },
+          {
+            "http_code": "422Unprocessable Entity",
+            "meaning": "Possible reasons:The user in user_id is a moderator. To make them a VIP, you must first remove them as a moderator (see Remove Channel Moderator).The user in the user_id query parameter is already a VIP."
+          },
+          {
+            "http_code": "425Too Early",
+            "meaning": "The broadcaster must complete the Build a Community requirement before they may assign VIPs."
+          },
+          {
+            "http_code": "429Too Many Requests",
+            "meaning": "The channel has exceeded the number of grant-VIP requests they may make within a 10 seconds period. See Rate Limits for this endpoint above."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "POST",
+            "url": "https://api.twitch.tv/helix/channels/vips"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Remove Channel VIP",
+        "description": "NEW Removes a VIP from the broadcaster’s chat room.",
+        "id": "remove-channel-vip",
+        "resource": "Moderation"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Removes the VIP from the broadcaster’s chat room."
+          ],
+          "requests": [
+            "curl -X DELETE 'https://api.twitch.tv/helix/channels/vips?broadcaster_id=123&user_id=456'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "remove-channel-vip",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:vips scope. The ID in the broadcaster_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the user to remove as a VIP from the broadcaster’s chat room.",
+            "param": "user_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the broadcaster that’s removing VIP status from the user.",
+            "param": "broadcaster_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully removed the VIP."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in broadcaster_id is not valid.The ID in user_id is not valid."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The Authorization header is required and must contain a user access token.The user access token is missing the channel:manage:vips scope.The OAuth token is not valid.The ID in the broadcaster_id query parameter must match the user ID in the access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "422Unprocessable Entity",
+            "meaning": "The user in user_id is not a VIP."
+          },
+          {
+            "http_code": "429Too Many Requests",
+            "meaning": "The channel has exceeded the number of remove-vip requests they may make within a 10 seconds period. See Rate Limits for this endpoint above."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "DELETE",
+            "url": "https://api.twitch.tv/helix/channels/vips"
           }
         ]
       }
@@ -6766,16 +7733,6 @@
         ],
         "optional_body_params": [
           {
-            "description": "Indicates if Bits can be used for voting.Default: false",
-            "param": "bits_voting_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "Number of Bits required to vote once with Bits.Minimum: 0. Maximum: 10000.",
-            "param": "bits_per_vote",
-            "type": "integer"
-          },
-          {
             "description": "Indicates if Channel Points can be used for voting.Default: false",
             "param": "channel_points_voting_enabled",
             "type": "boolean"
@@ -6856,17 +7813,17 @@
             "type": "integer"
           },
           {
-            "description": "Number of votes received via Bits.",
+            "description": "Not used; will be set to 0.",
             "param": "choice.bits_votes",
             "type": "integer"
           },
           {
-            "description": "Indicates if Bits can be used for voting.",
+            "description": "Not used; will be set to false.",
             "param": "bits_voting_enabled",
             "type": "boolean"
           },
           {
-            "description": "Number of Bits required to vote once with Bits.",
+            "description": "Not used; will be set to 0.",
             "param": "bits_per_vote",
             "type": "integer"
           },
@@ -7201,7 +8158,7 @@
             "type": "string"
           },
           {
-            "description": "Number of unique uesrs that chose the outcome.",
+            "description": "Number of unique users that chose the outcome.",
             "param": "outcome.users",
             "type": "integer"
           },
@@ -7217,17 +8174,17 @@
           },
           {
             "description": "ID of the user.",
-            "param": "outcome.top_predictors.user.id",
+            "param": "outcome.top_predictors.user.user_id",
             "type": "string"
           },
           {
             "description": "Display name of the user.",
-            "param": "outcome.top_predictors.user.name",
+            "param": "outcome.top_predictors.user.user_name",
             "type": "string"
           },
           {
             "description": "Login of the user.",
-            "param": "outcome.top_predictors.user.login",
+            "param": "outcome.top_predictors.user.user_login",
             "type": "string"
           },
           {
@@ -7241,7 +8198,7 @@
             "type": "integer"
           },
           {
-            "description": "Color for the outcome. Valid values: BLUE, PINK",
+            "description": "Color for the outcome. If the number of outcomes is two, the color is BLUE for the first one and PINK for the second one. If there are more than two outcomes, the color is BLUE for all of them.",
             "param": "outcome.color",
             "type": "string"
           },
@@ -7293,7 +8250,7 @@
             "Creates a Prediction for the TwitchDev channel."
           ],
           "requests": [
-            "curl -X POST 'https://api.twitch.tv/helix/predictions'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d'{\n  \"broadcaster_id\": \"141981764\",\n  \"title\": \"Any leeks in the stream?\",\n  \"outcomes\": [\n    {\n      \"title\": \"Yes, give it time.\"\n    },\n    {\n      \"title\": \"Definitely not.\"\n    }\n  ],\n  \"prediction_window\": 120,\n}'"
+            "curl -X POST 'https://api.twitch.tv/helix/predictions'  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  \n -H'Content-Type: application/json'  \n -d'{\n  \"broadcaster_id\": \"141981764\",\n  \"title\": \"Any leeks in the stream?\",\n  \"outcomes\": [\n    {\n      \"title\": \"Yes, give it time.\"\n    },\n    {\n      \"title\": \"Definitely not.\"\n    }\n  ],\n  \"prediction_window\": 120\n}'"
           ]
         },
         "responses": {
@@ -7321,7 +8278,7 @@
             "type": "string"
           },
           {
-            "description": "Array of outcome objects with titles for the Prediction. Array size must be between 2 and 10 inclusively. If 2 outcomes are provided, the first outcome object is the “blue” outcome and the second outcome object is the “pink” outcome when viewing the Prediction on Twitch. If more than 2 outcomes are provided, all outcomes are blue when viewing the Prediction on Twitch.",
+            "description": "The list of possible outcomes for the Prediction. The minimum number of outcomes that you may specify is 2 and the maximum is 10.",
             "param": "outcomes",
             "type": "object[]"
           },
@@ -7355,7 +8312,7 @@
           },
           {
             "http_code": "429",
-            "meaning": "Too many requests. Check the Ratelimit-Reset response header to determine when you may resume making requests."
+            "meaning": "Too many requests."
           }
         ],
         "response_fields": [],
@@ -7416,7 +8373,7 @@
             "type": "integer"
           },
           {
-            "description": "Color for the outcome. Valid values: BLUE, PINK",
+            "description": "Color for the outcome. If the number of outcomes is two, the color is BLUE for the first one and PINK for the second one. If there are more than two outcomes, the color is BLUE for all of them.",
             "param": "outcome.color",
             "type": "string"
           },
@@ -7613,7 +8570,7 @@
             "type": "integer"
           },
           {
-            "description": "Color for the outcome. Valid values: BLUE, PINK",
+            "description": "Color for the outcome. If the number of outcomes is two, the color is BLUE for the first one and PINK for the second one. If there are more than two outcomes, the color is BLUE for all of them.",
             "param": "outcome.color",
             "type": "string"
           },
@@ -7684,8 +8641,140 @@
     },
     {
       "category": {
+        "action": "Start a raid",
+        "description": "NEW Raid another channel by sending the broadcaster’s viewers to the targeted channel.",
+        "id": "start-a-raid",
+        "resource": "Raids"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [],
+          "requests": [
+            "curl -X POST 'https://api.twitch.tv/helix/raids?from_broadcaster_id=12345678&to_broadcaster_id=87654321'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": [
+            "{\"data\":[{\"created_at\":\"2022-02-18T07:20:50.52Z\",\"is_mature\":false}]}"
+          ]
+        }
+      },
+      "id": "start-a-raid",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:raids scope. The  ID in the from_broadcaster_id query parameter must match the user ID in the OAuth token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [],
+        "response_codes": [
+          {
+            "http_code": "200 OK",
+            "meaning": "The request to start the raid was successful. To determine whether the raid successfully occurred (the broadcaster clicked Raid Now or the countdown expired), you must subscribe to the Channel Raid event."
+          },
+          {
+            "http_code": "400 Bad Request",
+            "meaning": "Possible reasons: The raiding broadcaster is blocked from the targeted channel.The targeted channel doesn't accept raids from this broadcaster.There are too many viewers in the raiding party.The IDs in from_broadcaster_id and to_broadcaster_id cannot be the same ID.The ID in the from_broadcaster_id query parameter is not valid. It must be a positive integer.The ID in the to_broadcaster_id query parameter is not valid. It must be a positive integer."
+          },
+          {
+            "http_code": "401 Unauthorized",
+            "meaning": "Possible reasons: The token expired or was revoked.The OAuth token doesn't include the required scope.The ID in the from_broadcaster_id query parameter doesn't match the user ID in the OAuth token.The request didn't specify the Authorization header.The request didn't specify the Client-Id header.The ID in the Client-Id header doesn't match the Client ID in the OAuth token."
+          },
+          {
+            "http_code": "404 Not Found",
+            "meaning": "Possible reasons: The targeted channel was not found."
+          },
+          {
+            "http_code": "409 Conflict",
+            "meaning": "Possible reasons: The broadcaster is already in the process of raiding another channel."
+          },
+          {
+            "http_code": "429 Too Many Requests",
+            "meaning": "Possible reasons: The broadcaster exceeded the number of raid requests that they may make. The limit is 10 requests within a 10-minute window."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "POST",
+            "url": "https://api.twitch.tv/helix/raids"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Cancel a raid",
+        "description": "NEW Cancel a pending raid.",
+        "id": "cancel-a-raid",
+        "resource": "Raids"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [],
+          "requests": [
+            "curl -X DELETE 'https://api.twitch.tv/helix/raids?broadcaster_id=12345678'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "cancel-a-raid",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the channel:manage:raids scope. The  ID in the broadcaster_id query parameter must match the user ID in the OAuth token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [],
+        "response_codes": [
+          {
+            "http_code": "204 No Content",
+            "meaning": "The pending raid was successfully canceled."
+          },
+          {
+            "http_code": "400 Bad Request",
+            "meaning": "Possible reasons: The ID in the broadcaster_id query parameter is not valid. It must be a positive integer."
+          },
+          {
+            "http_code": "401 Unauthorized",
+            "meaning": "Possible reasons: The token expired or was revoked.The OAuth token doesn't include the required scope.The ID in the broadcaster_id query parameter doesn't match the user ID in the OAuth token.The request didn't specify the Authorization header.The request didn't specify the Client-Id header.The ID in the Client-Id header doesn't match the Client ID in the OAuth token."
+          },
+          {
+            "http_code": "404 Not Found",
+            "meaning": "Possible reasons: The broadcaster doesn't have a pending raid to cancel."
+          },
+          {
+            "http_code": "429 Too Many Requests",
+            "meaning": "Possible reasons: The broadcaster exceeded the number of raid requests that they may make. The limit is 10 requests within a 10-minute window."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "DELETE",
+            "url": "https://api.twitch.tv/helix/raids"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
         "action": "Get Channel Stream Schedule",
-        "description": "NEW Gets all scheduled broadcasts or specific scheduled broadcasts from a channel’s stream schedule.",
+        "description": "Gets all scheduled broadcasts or specific scheduled broadcasts from a channel’s stream schedule.",
         "id": "get-channel-stream-schedule",
         "resource": "Schedule"
       },
@@ -7813,7 +8902,7 @@
           },
           {
             "description": "Indicates if the scheduled broadcast is recurring weekly.",
-            "param": "is_recurring",
+            "param": "segment.is_recurring",
             "type": "boolean"
           },
           {
@@ -7859,7 +8948,7 @@
     {
       "category": {
         "action": "Get Channel iCalendar",
-        "description": "NEW Gets all scheduled broadcasts from a channel’s stream schedule as an iCalendar.",
+        "description": "Gets all scheduled broadcasts from a channel’s stream schedule as an iCalendar.",
         "id": "get-channel-icalendar",
         "resource": "Schedule"
       },
@@ -7928,7 +9017,7 @@
     {
       "category": {
         "action": "Update Channel Stream Schedule",
-        "description": "NEW Update the settings for a channel’s stream schedule.",
+        "description": "Update the settings for a channel’s stream schedule.",
         "id": "update-channel-stream-schedule",
         "resource": "Schedule"
       },
@@ -8016,7 +9105,7 @@
     {
       "category": {
         "action": "Create Channel Stream Schedule Segment",
-        "description": "NEW Create a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
+        "description": "Create a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
         "id": "create-channel-stream-schedule-segment",
         "resource": "Schedule"
       },
@@ -8054,7 +9143,7 @@
             "type": "string"
           },
           {
-            "description": "Indicates if the scheduled broadcast is recurring weekly.",
+            "description": "Indicates if the scheduled broadcast is recurring weekly. To create a non-recurring segment, the broadcaster must be a partner or affiliate.",
             "param": "is_recurring",
             "type": "boolean"
           }
@@ -8150,7 +9239,7 @@
           },
           {
             "description": "Indicates if the scheduled broadcast is recurring weekly.",
-            "param": "is_recurring",
+            "param": "segment.is_recurring",
             "type": "boolean"
           },
           {
@@ -8196,7 +9285,7 @@
     {
       "category": {
         "action": "Update Channel Stream Schedule Segment",
-        "description": "NEW Update a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
+        "description": "Update a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
         "id": "update-channel-stream-schedule-segment",
         "resource": "Schedule"
       },
@@ -8206,7 +9295,7 @@
             "Update a non-recurring stream schedule segment for the TwitchDev channel’s stream schedule."
           ],
           "requests": [
-            "curl -X PATCH 'https://api.twitch.tv/helix/schedule/segment?broadcaster_id=141981764&id=eyJzZWdtZW50SUQiOiJlNGFjYzcyNC0zNzFmLTQwMmMtODFjYS0yM2FkYTc5NzU5ZDQiLCJpc29ZZWFyIjoyMDIxLCJpc29XZWVrIjoyNn0='  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'-d'{\n  \"duration\": \"120\"\n}'"
+            "curl -X PATCH 'https://api.twitch.tv/helix/schedule/segment?broadcaster_id=141981764&id=eyJzZWdtZW50SUQiOiJlNGFjYzcyNC0zNzFmLTQwMmMtODFjYS0yM2FkYTc5NzU5ZDQiLCJpc29ZZWFyIjoyMDIxLCJpc29XZWVrIjoyNn0='  \n -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  \n -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'-H'Content-Type: application/json'  \n -d'{\n  \"duration\": \"120\"\n}'"
           ]
         },
         "responses": {
@@ -8380,7 +9469,7 @@
     {
       "category": {
         "action": "Delete Channel Stream Schedule Segment",
-        "description": "NEW Delete a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
+        "description": "Delete a single scheduled broadcast or a recurring scheduled broadcast for a channel’s stream schedule.",
         "id": "delete-channel-stream-schedule-segment",
         "resource": "Schedule"
       },
@@ -8643,7 +9732,7 @@
             "type": "string[]"
           },
           {
-            "description": "Thumbnail URL of the stream. All image URLs have variable width and height. You can replace {width} and {height} with any values to get that size image.",
+            "description": "A URL to a thumbnail of the channel’s profile image.",
             "param": "thumbnail_url",
             "type": "string"
           },
@@ -8684,7 +9773,7 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"track\":{\"artists\":[{\"id\":\"B07S7JG3TK\",\"name\":\"Enoth\",\"creator_channel_id\":\"39051113\"}],\"id\":\"B08D6QFS38\",\"duration\":153,\"title\":\"Please stay\",\"album\":{\"id\":\"B08D6PMKYL\",\"name\":\"Summer 2020\",\"image_url\":\"https://m.media-amazon.com/images/I/51zs1JZY8tL.jpg\"}},\"source\":{\"id\":\"B08HCW84SF\",\"content_type\":\"PLAYLIST\",\"title\":\"Beats To Stream To\",\"image_url\":\"https://m.media-amazon.com/images/I/419WuvMXzEL.jpg\",\"soundtrack_url\":\"https://soundtrack.twitch.tv/playlist?playlistID=B08HCW84SF\",\"spotify_url\":\"https://open.spotify.com/playlist/1LOP14236oTUscowY3NvYN\"}}]}"
+            "{\"data\":[{\"track\":{\"artists\":[{\"id\":\"B07S7JG3TK\",\"name\":\"Enoth\",\"creator_channel_id\":\"39051113\"}],\"id\":\"B08D6QFS38\",\"isrc\":\"CCXXXYYNNNNN\",\"duration\":153,\"title\":\"Please stay\",\"album\":{\"id\":\"B08D6PMKYL\",\"name\":\"Summer 2020\",\"image_url\":\"https://m.media-amazon.com/images/I/51zs1JZY8tL.jpg\"}},\"source\":{\"id\":\"B08HCW84SF\",\"content_type\":\"PLAYLIST\",\"title\":\"Beats To Stream To\",\"image_url\":\"https://m.media-amazon.com/images/I/419WuvMXzEL.jpg\",\"soundtrack_url\":\"https://soundtrack.twitch.tv/playlist?playlistID=B08HCW84SF\",\"spotify_url\":\"https://open.spotify.com/playlist/1LOP14236oTUscowY3NvYN\"}}]}"
           ]
         }
       },
@@ -8741,7 +9830,7 @@
     {
       "category": {
         "action": "Get Soundtrack Playlist",
-        "description": "BETA Gets a Soundtrack playlist, which includes its list of tracks.",
+        "description": "BETA Gets the tracks of a Soundtrack playlist.",
         "id": "get-soundtrack-playlist",
         "resource": "Music"
       },
@@ -8755,7 +9844,7 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"title\":\"Night Shift\",\"id\":\"B0912YMKSL\",\"image_url\":\"https://m.media-amazon.com/images/I/41UoIaB4VaL.jpg\",\"description\":\"R&B to ride out to.\",\"tracks\":[{\"artists\":[{\"id\":\"B002F8OLPK\",\"name\":\"BJ The Chicago Kid\",\"creator_channel_id\":\"\"}],\"id\":\"B09J7FZ92D\",\"duration\":210,\"title\":\"Smooth [Explicit]\",\"album\":{\"id\":\"B09J7B37VS\",\"name\":\"Smooth [Explicit]\",\"image_url\":\"https://m.media-amazon.com/images/I/316SDaD-XQL.jpg\"}},{\"artists\":[{\"id\":\"B071ZL7NDT\",\"name\":\"23 Unofficial\",\"creator_channel_id\":\"647990463\"},{\"id\":\"B073PHDDSK\",\"name\":\"KALLITECHNIS\",\"creator_channel_id\":\"\"}],\"id\":\"B09C8344GZ\",\"duration\":154,\"title\":\"OUTTA MY WAY\",\"album\":{\"id\":\"B09C794J2L\",\"name\":\"OUTTA MY WAY\",\"image_url\":\"https://m.media-amazon.com/images/I/515HYAEtpeL.jpg\"}}]}]}"
+            "{\"data\":[{\"artists\":[{\"id\":\"B002F8OLPK\",\"name\":\"BJ The Chicago Kid\",\"creator_channel_id\":\"\"}],\"id\":\"B09J7FZ92D\",\"isrc\":\"QM24S2106597\",\"duration\":210,\"title\":\"Smooth [Explicit]\",\"album\":{\"id\":\"B09J7B37VS\",\"name\":\"Smooth [Explicit]\",\"image_url\":\"https://m.media-amazon.com/images/I/316SDaD-XQL.jpg\"}},{\"artists\":[{\"id\":\"B071ZL7NDT\",\"name\":\"23 Unofficial\",\"creator_channel_id\":\"647990463\"},{\"id\":\"B073PHDDSK\",\"name\":\"KALLITECHNIS\",\"creator_channel_id\":\"\"}],\"id\":\"B09C8344GZ\",\"isrc\":\"QM24S2105530\",\"duration\":154,\"title\":\"OUTTA MY WAY\",\"album\":{\"id\":\"B09C794J2L\",\"name\":\"OUTTA MY WAY\",\"image_url\":\"https://m.media-amazon.com/images/I/515HYAEtpeL.jpg\"}}],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6MjB9fQ\"}}"
           ]
         }
       },
@@ -8773,6 +9862,16 @@
           {
             "description": "The ID of the Soundtrack playlist to get.",
             "param": "id",
+            "type": "String"
+          },
+          {
+            "description": "The maximum number of tracks to return for this playlist in the response. The minimum number of tracks is 1 and the maximum is 50. The default is 20.",
+            "param": "first",
+            "type": "Integer"
+          },
+          {
+            "description": "The cursor used to get the next page of tracks for this playlist. The Pagination object in the response contains the cursor’s value.",
+            "param": "after",
             "type": "String"
           }
         ],
@@ -8818,15 +9917,20 @@
       },
       "doc": {
         "requests": {
-          "descriptions": [],
+          "descriptions": [
+            "Gets all playlists.",
+            "Gets a single playlist."
+          ],
           "requests": [
+            "curl -X GET 'https://api.twitch.tv/helix/soundtrack/playlists?id=B0912YMKSL'  \n -H'Authorization: Bearer 4a4x78f5wqvkybms7mxfist3jmzul'  \n -H'Client-Id: t214nt8z1rdtbj69hyarjvh5mi6fh'",
             "curl -X GET 'https://api.twitch.tv/helix/soundtrack/playlists'  \n -H'Authorization: Bearer 4a4x78f5wqvkybms7mxfist3jmzul'  \n -H'Client-Id: t214nt8z1rdtbj69hyarjvh5mi6fh'"
           ]
         },
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"title\":\"Label Spotlight: Radio Juicy\",\"id\":\"B08P3N4ZPD\",\"image_url\":\"https://m.media-amazon.com/images/I/517kGzeaRhL.jpg\",\"description\":\"Journey through boom-bap, lo-fi, trap and ambient sounds, courtesy of esteemed label Radio Juicy.\"},{\"title\":\"Fall Days\",\"id\":\"B09LVX24K7\",\"image_url\":\"https://m.media-amazon.com/images/I/41w3M-1KfXL.jpg\",\"description\":\"Turn a new leaf with these chill pop & indie tunes.\"},{\"title\":\"Release Spotlight: JVNA\",\"id\":\"B09M7H78YL\",\"image_url\":\"https://m.media-amazon.com/images/I/419V2D2OlML.jpg\",\"description\":\"Twitch streamer, singer-songwriter and producer JVNA presents her debut album \\\"Hope in Chaos\\\".\"},{\"title\":\"Among Us\",\"id\":\"B08ZDWR371\",\"image_url\":\"https://m.media-amazon.com/images/I/414O3CYQguL.jpg\",\"description\":\"Traverse space, do tasks, and eject the Impostors in this official Among Us playlist!\"}]}"
+            "{\"data\":[{\"title\":\"Night Shift\",\"id\":\"B0912YMKSL\",\"image_url\":\"https://m.media-amazon.com/images/I/41UoIaB4VaL.jpg\",\"description\":\"R&B to ride out to.\"}],\"pagination\":{}}",
+            "{\"data\":[{\"title\":\"Label Spotlight: Radio Juicy\",\"id\":\"B08P3N4ZPD\",\"image_url\":\"https://m.media-amazon.com/images/I/517kGzeaRhL.jpg\",\"description\":\"Journey through boom-bap, lo-fi, trap and ambient sounds, courtesy of esteemed label Radio Juicy.\"},{\"title\":\"Fall Days\",\"id\":\"B09LVX24K7\",\"image_url\":\"https://m.media-amazon.com/images/I/41w3M-1KfXL.jpg\",\"description\":\"Turn a new leaf with these chill pop & indie tunes.\"},{\"title\":\"Release Spotlight: JVNA\",\"id\":\"B09M7H78YL\",\"image_url\":\"https://m.media-amazon.com/images/I/419V2D2OlML.jpg\",\"description\":\"Twitch streamer, singer-songwriter and producer JVNA presents her debut album \\\"Hope in Chaos\\\".\"},{\"title\":\"Among Us\",\"id\":\"B08ZDWR371\",\"image_url\":\"https://m.media-amazon.com/images/I/414O3CYQguL.jpg\",\"description\":\"Traverse space, do tasks, and eject the Impostors in this official Among Us playlist!\"}],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6MjB9fQ\"}}"
           ]
         }
       },
@@ -8842,9 +9946,19 @@
         "pagination": [],
         "query_params": [
           {
-            "description": "None",
-            "param": "",
-            "type": ""
+            "description": "The ID of the Soundtrack playlist to get. Specify an ID only if you want to get a single playlist instead of all playlists.",
+            "param": "id",
+            "type": "String"
+          },
+          {
+            "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 50 items per page. The default is 20.",
+            "param": "first",
+            "type": "Integer"
+          },
+          {
+            "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read more.",
+            "param": "after",
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -9359,7 +10473,7 @@
         "responses": {
           "descriptions": [],
           "responses": [
-            "{\"data\":[{\"user_id\":\"123\",\"user_name\":\"TwitchName\",\"user_login\":\"twitchname\",\"videos\":[{\"video_id\":\"456\",\"markers\":[{\"id\":\"106b8d6243a4f883d25ad75e6cdffdc4\",\"created_at\":\"2018-08-20T20:10:03Z\",\"description\":\"hello, this is a marker!\",\"position_seconds\":244,\"URL\":\"https://twitch.tv/videos/456?t=0h4m06s\"},...]}]}],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjoiMjk1MjA0Mzk3OjI1Mzpib29rbWFyazoxMDZiOGQ1Y\"}}"
+            "{\"data\":[{\"user_id\":\"123\",\"user_name\":\"TwitchName\",\"user_login\":\"twitchname\",\"videos\":[{\"video_id\":\"456\",\"markers\":[{\"id\":\"106b8d6243a4f883d25ad75e6cdffdc4\",\"created_at\":\"2018-08-20T20:10:03Z\",\"description\":\"hello, this is a marker!\",\"position_seconds\":244,\"URL\":\"https://twitch.tv/twitchname/manager/highlighter/456?t=0h4m06s\"},...]}]}],\"pagination\":{\"cursor\":\"eyJiIjpudWxsLCJhIjoiMjk1MjA0Mzk3OjI1Mzpib29rbWFyazoxMDZiOGQ1Y\"}}"
           ]
         }
       },
@@ -9638,7 +10752,7 @@
             "If TwitchDev does not subscribe to the TwitchPresents channel."
           ],
           "responses": [
-            "{\"error\":\"Not Found\",\"message\":\"twitchdev has no subscription to twitchpresents\",\"status\":404}",
+            "{\"error\":\"Not Found\",\"message\":\"141981764 does not subscribe to 149747285\",\"status\":404}",
             "{\"data\":[{\"broadcaster_id\":\"149747285\",\"broadcaster_name\":\"TwitchPresents\",\"broadcaster_login\":\"twitchpresents\",\"is_gift\":false,\"tier\":\"1000\"}]}"
           ]
         }
@@ -9706,12 +10820,17 @@
             "type": "boolean"
           },
           {
-            "description": "Login of the gifter (if is_gift is true).",
+            "description": "The ID of the user that gifted the subscription to the user. The object includes this field only if is_gift is true.",
+            "field": "gifter_id",
+            "type": "string"
+          },
+          {
+            "description": "The gifter’s login name. The object includes this field only if is_gift is true.",
             "field": "gifter_login",
             "type": "string"
           },
           {
-            "description": "Display name of the gifter (if is_gift is true).",
+            "description": "The gifter’s display name. The object includes this field only if is_gift is true.",
             "field": "gifter_name",
             "type": "string"
           },
@@ -9856,7 +10975,7 @@
           "descriptions": [],
           "responses": [
             "{\"data\":[{\"tag_id\":\"6ea6bca4-4712-4ab9-a906-e3336a9d8039\",\"is_auto\":true,\"localization_names\":{\"bg-bg\":\"английски\",\"cs-cz\":\"Angličtina\",\"da-dk\":\"Engelsk\",\"de-de\":\"Englisch\",\"el-gr\":\"Αγγλικά\",\"en-us\":\"English\",...},\"localization_descriptions\":{\"bg-bg\":\"За потоци с използване на английски\",\"cs-cz\":\"Pro vysílání obsahující angličtinu.\",\"da-dk\":\"Til streams, hvori der indgår engelsk\",\"de-de\":\"Für Streams auf Englisch.\",\"el-gr\":\"Για μεταδόσεις που περιλαμβάνουν τη χρήση Αγγλικών\",\"en-us\":\"For streams featuring the use of English\",...}}]}",
-            "# Twitch CLI example that gets the list of tags on the TwitchGaming channel.\ntwitch api get /tags/streams -qbroadcaster_id=527115020\n"
+            "# Twitch CLI example that gets the list of tags on the TwitchGaming channel.\ntwitch api get /streams/tags -qbroadcaster_id=527115020\n"
           ]
         }
       },
@@ -10372,7 +11491,7 @@
             "type": "string"
           },
           {
-            "description": "Total number of views of the user’s channel.",
+            "description": "Total number of views of the user’s channel.NOTE: This field has been deprecated. For information, see Get Users API endpoint – “view_count” deprecation. The response continues to include the field; however, it contains stale data. You should stop displaying this data at your earliest convenience.",
             "field": "view_count",
             "type": "integer"
           },
@@ -11339,13 +12458,99 @@
             "meaning": "Authorization failed; either for the API request itself or if the requester is not authorized to delete the specified videos."
           }
         ],
-        "response_fields": [],
+        "response_fields": [
+          {
+            "description": "An array of IDs of the videos that were deleted.",
+            "field": "data",
+            "type": "string[]"
+          }
+        ],
         "response_values": [],
         "url": [
           {
             "description": "",
             "method": "DELETE",
             "url": "https://api.twitch.tv/helix/videos"
+          }
+        ]
+      }
+    },
+    {
+      "category": {
+        "action": "Send Whisper",
+        "description": "NEW Sends a whisper message to the specified user.",
+        "id": "send-whisper",
+        "resource": "Whispers"
+      },
+      "doc": {
+        "requests": {
+          "descriptions": [
+            "Send the user a whisper message."
+          ],
+          "requests": [
+            "curl -X POST 'https://api.twitch.tv/helix/whispers?from_user_id=123&to_user_id=456'  \n -H'Authorization: Bearer kpvy3cjboyptmdkiacwr0c19hotn5s'  \n -H'Client-Id: hof5gwx0su6owfnys0nyan9c87zr6t'  \n -H'Content-Type: application/json'  \n -d'{\"message\":\"hello\"}'"
+          ]
+        },
+        "responses": {
+          "descriptions": [],
+          "responses": []
+        }
+      },
+      "id": "send-whisper",
+      "request": {
+        "authentication": [],
+        "authorization": [
+          "Requires a user access token that includes the user:manage:whispers scope. The ID in the from_user_id query parameter must match the user ID in the access token."
+        ],
+        "body_params": [],
+        "optional_body_params": [],
+        "optional_query_params": [],
+        "pagination": [],
+        "query_params": [
+          {
+            "description": "The ID of the user sending the whisper. This user must have a verified phone number.",
+            "param": "from_user_id",
+            "type": "Yes"
+          },
+          {
+            "description": "The ID of the user to receive the whisper.",
+            "param": "to_user_id",
+            "type": "Yes"
+          }
+        ],
+        "response_codes": [
+          {
+            "http_code": "204No Content",
+            "meaning": "Successfully sent the whisper message or the message was silently dropped."
+          },
+          {
+            "http_code": "400Bad Request",
+            "meaning": "Possible reasons:The ID in the from_user_id and to_user_id query parameters must be different.The message field must not contain an empty string.The user that you're sending the whisper to doesn't allow whisper messages (see the Block Whispers from Strangers setting in your Security and Privacy settings).Whisper messages may not be sent to suspended users.The ID in the from_user_id query parameter is not valid.The ID in the to_user_id query parameter is not valid."
+          },
+          {
+            "http_code": "401Unauthorized",
+            "meaning": "Possible reasons:The user in the from_user_id query parameter must have a verified phone number.The Authorization header is required and must contain a user access token.The user access token is missing the user:manage:whispers scope.The OAuth token is not valid.This ID in from_user_id must match the user ID in the user access token.The client ID specified in the Client-Id header does not match the client ID specified in the OAuth token."
+          },
+          {
+            "http_code": "403Forbidden",
+            "meaning": "Possible reasons:Whisper messages may not be sent from suspended users.The account that's sending the message doesn't allow sending whispers."
+          },
+          {
+            "http_code": "404Not Found",
+            "meaning": "The ID in to_user_id was not found."
+          },
+          {
+            "http_code": "429Too Many Requests",
+            "meaning": "The sending user exceeded the number of whisper requests that they may make. See Rate Limits for this endpoint above."
+          }
+        ],
+        "response_fields": [],
+        "response_values": [],
+        "url": [
+          {
+            "description": "",
+            "method": "POST",
+            "url": "https://api.twitch.tv/helix/whispers"
           }
         ]
       }

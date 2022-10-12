@@ -38,6 +38,14 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.ResponseCodes do
   defp parse_description_raw(value) when is_binary(value), do: value
   defp parse_description_raw({_, _, [value]}) when is_binary(value), do: value
   defp parse_description_raw({_, _, []}), do: []
+  defp parse_description_raw({_, _, list}), do: Enum.map(list, &parse_inner_value(&1))
+
+  defp parse_inner_value({_, _, inner_list}) do
+    Enum.map_join(inner_list, fn
+      value when is_binary(value) -> value
+      {_, _, [value]} -> value
+    end)
+  end
 
   defp put_value(index, value, acc) do
     case index do

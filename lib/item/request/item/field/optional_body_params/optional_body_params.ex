@@ -15,6 +15,8 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.OptionalBodyParams do
     {field, parse_body_values(body_values)}
   end
 
+  def parse({field, {"p", [], [_]}}), do: {field, []}
+
   defp parse_body_values(body_values), do: Enum.map(body_values, &parse_body_value(&1))
 
   defp parse_body_value({"tr", _, body_value_rows}) do
