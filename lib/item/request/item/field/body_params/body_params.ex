@@ -15,13 +15,18 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
     {field, parse_body_values(body_values)}
   end
 
+  def parse({field, {"p", _, [_]}}) do
+    {field, []}
+  end
+
   defp parse_body_values(body_values), do: Enum.map(body_values, &parse_body_value(&1))
 
   defp parse_body_value({"tr", _, body_value_rows}) do
     body_value_rows
     |> Enum.with_index()
     |> Enum.reduce(%{}, fn
-      {{_, _, [value]}, _}, _ when value in ["Description", "Type", "Parameter"] ->
+      {{_, _, [value]}, _}, _
+      when value in ["Description", "Type", "Parameter", "Required", "Required?"] ->
         []
 
       {{_, _, [value]}, index}, acc when is_binary(value) ->
@@ -40,11 +45,15 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
   defp parse_description_raw({_, _, [value]}) when is_binary(value), do: value
   defp parse_description_raw({_, _, []}), do: []
 
+  defp parse_description_raw({field, _, li_values}) when field in ~w(li ul strong code),
+    do: Enum.map_join(li_values, &parse_description_raw(&1))
+
   defp put_value(index, value, acc) do
     case index do
       0 -> Map.put(acc, :param, String.trim(value))
       1 -> Map.put(acc, :type, String.trim(value))
       2 -> Map.put(acc, :description, String.trim(value))
+      3 -> Map.put(acc, :description, String.trim(value))
     end
   end
 end

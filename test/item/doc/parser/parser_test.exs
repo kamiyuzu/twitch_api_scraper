@@ -22,7 +22,7 @@ defmodule TwitchApiScraper.Item.Doc.ParserTest do
       end
 
       test "#{index} of #{length(@parsed_tree)}: checks doc item from the parsed tree Doc struct response is correct" do
-        assert %Item{responses: %Response{responses: responses}} =
+        assert %Item{responses: %Response{responses: _}} =
                  Parser.parse_doc_tree_item(unquote(parsed_item))
       end
 
