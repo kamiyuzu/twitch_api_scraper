@@ -863,7 +863,28 @@
           "Required scope: channel:manage:broadcast"
         ],
         "authorization": [],
-        "body_params": [],
+        "body_params": [
+          {
+            "description": "The current game ID being played on the channel. Use “0” or “” (an empty string) to unset the game.",
+            "param": "game_id",
+            "type": "string"
+          },
+          {
+            "description": "The language of the channel. A language value must be either the ISO 639-1 two-letter code for a supported stream language or “other”.",
+            "param": "broadcaster_language",
+            "type": "string"
+          },
+          {
+            "description": "The title of the stream. Value must not be an empty string.",
+            "param": "title",
+            "type": "string"
+          },
+          {
+            "description": "Stream delay in seconds. Stream delay is a Twitch Partner feature; trying to set this value for other account types will return a 400 error.",
+            "param": "delay",
+            "type": "integer"
+          }
+        ],
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
@@ -1029,63 +1050,7 @@
             "type": "integer"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "The prompt for the viewer when redeeming the reward. The maximum length is 200 characters.",
-            "param": "prompt",
-            "type": "string"
-          },
-          {
-            "description": "Is the reward currently enabled, if false the reward won’t show up to viewers. Default: true",
-            "param": "is_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "Custom background color for the reward. Format: Hex with # prefix. Example: #00E5CB.",
-            "param": "background_color",
-            "type": "string"
-          },
-          {
-            "description": "Does the user need to enter information when redeeming the reward. Default: false.",
-            "param": "is_user_input_required",
-            "type": "boolean"
-          },
-          {
-            "description": "Whether a maximum per stream is enabled. Default: false.",
-            "param": "is_max_per_stream_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "The maximum number per stream if enabled. Required when any value of is_max_per_stream_enabled is included.",
-            "param": "max_per_stream",
-            "type": "integer"
-          },
-          {
-            "description": "Whether a maximum per user per stream is enabled. Default: false.",
-            "param": "is_max_per_user_per_stream_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "The maximum number per user per stream if enabled. Required when any value of is_max_per_user_per_stream_enabled is included.",
-            "param": "max_per_user_per_stream",
-            "type": "integer"
-          },
-          {
-            "description": "Whether a cooldown is enabled. Default: false.",
-            "param": "is_global_cooldown_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "The cooldown in seconds if enabled. Required when any value of is_global_cooldown_enabled is included.",
-            "param": "global_cooldown_seconds",
-            "type": "integer"
-          },
-          {
-            "description": "Should redemptions be set to FULFILLED status immediately when redeemed and skip the request queue instead of the normal UNFULFILLED status. Default: false.",
-            "param": "should_redemptions_skip_request_queue",
-            "type": "boolean"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [
@@ -2994,7 +2959,18 @@
         "authorization": [
           "Requires a user access token that includes the moderator:manage:announcements scope. The ID in the moderator_id query parameter must match the user ID in the access token."
         ],
-        "body_params": [],
+        "body_params": [
+          {
+            "description": "The announcement to make in the broadcaster’s chat room. Announcements are limited to a maximum of 500 characters; announcements longer than 500 characters are truncated.",
+            "param": "message",
+            "type": "String"
+          },
+          {
+            "description": "The color used to highlight the announcement. Possible case-sensitive values are:bluegreenorangepurpleprimary (default)If color is set to primary or is not set, the channel’s accent color is used to highlight the announcement (see Profile Accent Color under profile settings, Channel and Videos, and Brand).",
+            "param": "color",
+            "type": "String"
+          }
+        ],
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
@@ -3703,8 +3679,7 @@
           "The client ID associated with the access token must have ownership of the game:",
           "Client ID > Organization ID > Game ID"
         ],
-        "body_params": [],
-        "optional_body_params": [
+        "body_params": [
           {
             "description": "An array of unique identifiers of the entitlements to update.Maximum: 100.",
             "param": "entitlement_ids",
@@ -3724,6 +3699,7 @@
             "type": "All entitlements owned by that user with benefits owned by your organization."
           }
         ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -4000,23 +3976,7 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "User ID of the broadcaster. Required if the segment type is \"developer\" or \"broadcaster\".",
-            "param": "broadcaster_id",
-            "type": "string"
-          },
-          {
-            "description": "Configuration in a string-encoded format.",
-            "param": "content",
-            "type": "string"
-          },
-          {
-            "description": "Configuration version with the segment type.",
-            "param": "version",
-            "type": "string"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
           "Not applicable."
@@ -5113,23 +5073,7 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "Set to true if the product is in development and not yet released for public use.Default: false.",
-            "param": "in_development",
-            "type": "boolean"
-          },
-          {
-            "description": "Expiration time for the product in RFC3339 format. If not provided, the Bits product will not have an expiration date. Setting an expiration in the past will disable the product.",
-            "param": "expiration",
-            "type": "string"
-          },
-          {
-            "description": "Indicates if Bits product purchase events are broadcast to all instances of an Extension on a channel via the “onTransactionComplete” helper callback.Default: false.",
-            "param": "is_broadcast",
-            "type": "boolean"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
           "Not applicable."
@@ -6095,7 +6039,23 @@
         "authorization": [
           "OAuth token requiredRequired Scope: moderation:read"
         ],
-        "body_params": [],
+        "body_params": [
+          {
+            "description": "Description",
+            "param": "Parameter",
+            "type": "Required"
+          },
+          {
+            "description": "Developer-generated identifier for mapping messages to results.",
+            "param": "msg_id",
+            "type": "yes"
+          },
+          {
+            "description": "Message text.",
+            "param": "msg_text",
+            "type": "yes"
+          }
+        ],
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
@@ -7731,18 +7691,7 @@
             "type": "integer"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "Indicates if Channel Points can be used for voting.Default: false",
-            "param": "channel_points_voting_enabled",
-            "type": "boolean"
-          },
-          {
-            "description": "Number of Channel Points required to vote once with Channel Points.Minimum: 0. Maximum: 1000000.",
-            "param": "channel_points_per_vote",
-            "type": "integer"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -8488,13 +8437,7 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "ID of the winning outcome for the Prediction. This parameter is required if status is being set to RESOLVED.",
-            "param": "winning_outcome_id",
-            "type": "string"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -9148,23 +9091,7 @@
             "type": "boolean"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "Duration of the scheduled broadcast in minutes from the start_time.Default: 240.",
-            "param": "duration",
-            "type": "string"
-          },
-          {
-            "description": "Game/Category ID for the scheduled broadcast.",
-            "param": "category_id",
-            "type": "string"
-          },
-          {
-            "description": "Title for the scheduled broadcast.Maximum: 140 characters.",
-            "param": "title",
-            "type": "string"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
           "Forward pagination."
@@ -9311,8 +9238,7 @@
         "authorization": [
           "User OAuth TokenRequired scope: channel:manage:schedule"
         ],
-        "body_params": [],
-        "optional_body_params": [
+        "body_params": [
           {
             "description": "Start time for the scheduled broadcast specified in RFC3339 format.",
             "param": "start_time",
@@ -9344,6 +9270,7 @@
             "type": "string"
           }
         ],
+        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
           "None."
@@ -10399,13 +10326,7 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [
-          {
-            "description": "Description of or comments on the marker. Max length is 140 characters.",
-            "param": "description",
-            "type": "string"
-          }
-        ],
+        "optional_body_params": [],
         "optional_query_params": [
           {
             "description": "None",
@@ -11082,14 +11003,14 @@
           "."
         ],
         "authorization": [],
-        "body_params": [],
-        "optional_body_params": [
+        "body_params": [
           {
             "description": "A list of IDs that identify the tags to apply to the channel. You may specify a maximum of five tags.To remove all tags from the channel, set tag_ids to an empty array.",
             "param": "tag_ids",
             "type": "string array"
           }
         ],
+        "optional_body_params": [],
         "optional_query_params": [
           {
             "description": "None",
@@ -12502,7 +12423,13 @@
         "authorization": [
           "Requires a user access token that includes the user:manage:whispers scope. The ID in the from_user_id query parameter must match the user ID in the access token."
         ],
-        "body_params": [],
+        "body_params": [
+          {
+            "description": "The whisper message to send. The message must not be empty.The maximum message lengths are:500 characters if the user you're sending the message to hasn't whispered you before.10,000 characters if the user you're sending the message to has whispered you before.Messages that exceed the maximum length are truncated.",
+            "param": "message",
+            "type": "String"
+          }
+        ],
         "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],

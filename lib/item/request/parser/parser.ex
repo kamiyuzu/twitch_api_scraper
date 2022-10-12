@@ -83,7 +83,12 @@ defmodule TwitchApiScraper.Item.Request.Parser do
     [
       authentication: ["Authentication"],
       authorization: ["Authorization"],
-      body_params: ["Required Body Parameter"],
+      body_params: [
+        "Required Body Parameter",
+        "Required Body Parameters",
+        "Body Parameter",
+        "Body Parameters"
+      ],
       optional_body_params: ["Optional Body Parameter"],
       optional_query_params: ["Optional Query Parameter"],
       pagination: ["Pagination Support"],
