@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :twitch_api_scraper,
   twitch_api_url: "https://dev.twitch.tv/docs/api/reference",
