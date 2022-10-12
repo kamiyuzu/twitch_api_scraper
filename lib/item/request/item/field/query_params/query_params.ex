@@ -96,9 +96,11 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
   end
 
   defp fix_map(wrong_map) do
+    type = Map.get(wrong_map, :description)
     description = Map.get(wrong_map, :real_description)
 
     wrong_map
+    |> Map.put(:type, type)
     |> Map.put(:description, description)
     |> Map.delete(:real_description)
   end

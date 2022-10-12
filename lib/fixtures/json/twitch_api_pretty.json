@@ -2870,12 +2870,12 @@
           {
             "description": "The ID of the broadcaster whose chat settings you want to get.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "Required only to access the non_moderator_chat_delay or non_moderator_chat_delay_duration settings.The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to get their own settings (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -2947,12 +2947,12 @@
           {
             "description": "The ID of the broadcaster whose chat settings you want to update.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster is making the update, also set this parameter to the broadcaster’s ID.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [],
@@ -6114,7 +6114,7 @@
           {
             "description": "Provided broadcaster_id must match the user_id in the auth token.",
             "param": "broadcaster_id",
-            "type": "yes"
+            "type": "string"
           }
         ],
         "response_codes": [
@@ -6297,12 +6297,12 @@
           {
             "description": "The ID of the broadcaster whose AutoMod settings you want to get.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to get their own AutoMod settings (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6375,12 +6375,12 @@
           {
             "description": "The ID of the broadcaster whose AutoMod settings you want to update.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to update their own AutoMod settings (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6586,12 +6586,12 @@
           {
             "description": "The ID of the broadcaster whose chat room the user is being banned from.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to ban the user (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6677,17 +6677,17 @@
           {
             "description": "The ID of the broadcaster whose chat room the user is banned from chatting in.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to remove the ban (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the user to remove the ban or timeout from.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6770,22 +6770,22 @@
           {
             "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value.",
             "param": "after",
-            "type": "No"
+            "type": "String"
           },
           {
             "description": "The ID of the broadcaster whose blocked terms you’re getting.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The maximum number of blocked terms to return per page in the response. The minimum page size is 1 blocked term per page and the maximum is 100. The default is 20.",
             "param": "first",
-            "type": "No"
+            "type": "Integer"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to get their own block terms (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6855,12 +6855,12 @@
           {
             "description": "The ID of the broadcaster that owns the list of blocked terms.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.If the broadcaster wants to add the blocked term (instead of having the moderator do it), set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [],
@@ -6914,17 +6914,17 @@
           {
             "description": "The ID of the broadcaster that owns the list of blocked terms.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the blocked term you want to delete.",
             "param": "id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the broadcaster or a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID associated with the user OAuth token.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [],
@@ -9803,7 +9803,7 @@
           {
             "description": "The ID of the broadcaster that’s playing a Soundtrack track.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -9874,17 +9874,17 @@
           {
             "description": "The ID of the Soundtrack playlist to get.",
             "param": "id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The maximum number of tracks to return for this playlist in the response. The minimum number of tracks is 1 and the maximum is 50. The default is 20.",
             "param": "first",
-            "type": "No"
+            "type": "Integer"
           },
           {
             "description": "The cursor used to get the next page of tracks for this playlist. The Pagination object in the response contains the cursor’s value.",
             "param": "after",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -9960,17 +9960,17 @@
           {
             "description": "The ID of the Soundtrack playlist to get. Specify an ID only if you want to get a single playlist instead of all playlists.",
             "param": "id",
-            "type": "No"
+            "type": "String"
           },
           {
             "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 50 items per page. The default is 20.",
             "param": "first",
-            "type": "No"
+            "type": "Integer"
           },
           {
             "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read more.",
             "param": "after",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -10038,7 +10038,7 @@
           {
             "description": "User ID of the broadcaster",
             "param": "broadcaster_id",
-            "type": "yes"
+            "type": "string"
           }
         ],
         "response_codes": [
