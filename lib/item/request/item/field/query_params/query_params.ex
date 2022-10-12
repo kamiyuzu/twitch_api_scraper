@@ -43,7 +43,10 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
         []
 
       {{_, _, [{_, _, [value]}]}, _}, _
-      when value in ["Parameter", "Type", "Description", "Required"] ->
+      when value in ["Parameter", "Type", "Description", "Required", "Required?"] ->
+        []
+
+      {{_, _, [value]}, _}, _ when value in ["Parameter", "Param"] ->
         []
 
       {{_, _, [value]}, index}, acc when is_binary(value) ->
@@ -85,6 +88,15 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
         |> Map.put(:real_description, String.trim(value))
         |> fix_map()
     end
+  end
+
+  defp fix_map(%{description: required} = wrong_map)
+       when required in ["Yes", "yes", "No", "no"] do
+    description = Map.get(wrong_map, :real_description)
+
+    wrong_map
+    |> Map.put(:description, description)
+    |> Map.delete(:real_description)
   end
 
   defp fix_map(wrong_map) do

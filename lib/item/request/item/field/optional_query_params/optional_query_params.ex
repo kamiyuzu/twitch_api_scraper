@@ -43,13 +43,15 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.OptionalQueryParams do
     body_value_rows
     |> Enum.with_index()
     |> Enum.reduce(%{}, fn
-      {{_, _, [value]}, _}, _ when value in ["Parameter", "Type", "Description", "Name"] ->
+      {{_, _, [value]}, _}, _
+      when value in ["Parameter", "Type", "Description", "Name", "Param"] ->
         []
 
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, String.trim(value), acc)
 
-      {{_, _, [{_, _, [value]}]}, _}, _ when value in ["Parameter", "Type", "Description"] ->
+      {{_, _, [{_, _, [value]}]}, _}, _
+      when value in ["Parameter", "Type", "Description", "Required", "Required?"] ->
         []
 
       {{_, _, [{_, _, [value]}]}, index}, acc when is_binary(value) ->

@@ -2043,7 +2043,7 @@
           {
             "description": "The ID of the broadcaster that’s actively running a charity campaign.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -2198,22 +2198,22 @@
           {
             "description": "The ID of the broadcaster whose list of chatters you want to get.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the moderator or the specified broadcaster that’s requesting the list of chatters. This ID must match the user ID associated with the user access token.The moderator must have permission to moderate the broadcaster’s chat room.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 1,000. The default is 100.",
             "param": "first",
-            "type": "No"
+            "type": "Integer"
           },
           {
             "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read More",
             "param": "after",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -3002,12 +3002,12 @@
           {
             "description": "The ID of the broadcaster that owns the chat room to send the announcement to.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user who has permission to moderate the broadcaster’s chat room. This ID must match the user ID in the OAuth token, which can be a moderator or the broadcaster.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -3076,7 +3076,7 @@
           {
             "description": "The ID of the user whose color you want to get. To specify more than one user, include the user_id parameter for each user to get. For example, &user_id=1234&user_id=5678. The maximum number of IDs that you may specify is 100.The response ignores duplicate IDs and IDs that aren’t found.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -3141,12 +3141,12 @@
           {
             "description": "The ID of the user whose chat color you want to update.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The color to use for the user’s name in chat. All users may specify one of the following named color values.blueblue_violetcadet_bluechocolatecoraldodger_bluefirebrickgolden_rodgreenhot_pinkorange_redredsea_greenspring_greenyellow_greenTurbo and Prime users may specify a named color or a Hex color code like #9146FF. If you use a Hex color code, remember to URL encode it.",
             "param": "color",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -6969,17 +6969,17 @@
           {
             "description": "The ID of the broadcaster that owns the chat room to remove messages from.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of a user that has permission to moderate the broadcaster’s chat room. This ID must match the user ID in the OAuth token. If the broadcaster wants to remove messages themselves, set this parameter to the broadcaster’s ID, too.",
             "param": "moderator_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the message to remove. The id tag in the PRIVMSG contains the message’s ID (see PRIVMSG Tags). Restrictions:The message must have been created within the last 6 hours.The message must not belong to the broadcaster.The message must not belong to another moderator.If not specified, the request removes all messages in the broadcaster’s chat room.",
             "param": "message_id",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -7141,12 +7141,12 @@
           {
             "description": "The ID of the broadcaster that owns the chat room.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the user to add as a moderator in the broadcaster’s chat room.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -7217,12 +7217,12 @@
           {
             "description": "The ID of the broadcaster that owns the chat room.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the user to remove as a moderator from the broadcaster’s chat room.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -7293,22 +7293,22 @@
           {
             "description": "Filters the list for specific VIPs. To specify more than one user, include the user_id parameter for each user to get. For example, &user_id=1234&user_id=5678. The maximum number of IDs that you may specify is 100. Ignores those users in the list that aren’t VIPs.",
             "param": "user_id",
-            "type": "No"
+            "type": "String"
           },
           {
             "description": "The ID of the broadcaster whose list of VIPs you want to get.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The maximum number of items to return per page in the response. The minimum page size is 1 item per page and the maximum is 100. The default is 20.",
             "param": "first",
-            "type": "No"
+            "type": "Integer"
           },
           {
             "description": "The cursor used to get the next page of results. The Pagination object in the response contains the cursor’s value. Read more.",
             "param": "after",
-            "type": "No"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -7371,12 +7371,12 @@
           {
             "description": "The ID of the user to add as a VIP in the broadcaster’s chat room.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the broadcaster that’s granting VIP status to the user.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -7455,12 +7455,12 @@
           {
             "description": "The ID of the user to remove as a VIP from the broadcaster’s chat room.",
             "param": "user_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the broadcaster that’s removing VIP status from the user.",
             "param": "broadcaster_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
@@ -12510,12 +12510,12 @@
           {
             "description": "The ID of the user sending the whisper. This user must have a verified phone number.",
             "param": "from_user_id",
-            "type": "Yes"
+            "type": "String"
           },
           {
             "description": "The ID of the user to receive the whisper.",
             "param": "to_user_id",
-            "type": "Yes"
+            "type": "String"
           }
         ],
         "response_codes": [
