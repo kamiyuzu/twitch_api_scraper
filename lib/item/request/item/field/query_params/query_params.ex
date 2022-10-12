@@ -87,7 +87,8 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
     end
   end
 
-  defp fix_map(%{description: required} = wrong_map) when required in ["Yes", "yes", "No", "no"] do
+  defp fix_map(%{description: required} = wrong_map)
+       when required in ["Yes", "yes", "No", "no"] do
     description = Map.get(wrong_map, :real_description)
 
     wrong_map

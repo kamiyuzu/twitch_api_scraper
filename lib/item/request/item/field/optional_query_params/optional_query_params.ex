@@ -49,7 +49,8 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.OptionalQueryParams do
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, String.trim(value), acc)
 
-      {{_, _, [{_, _, [value]}]}, _}, acc when value in ["Parameter", "Type", "Description", "Required", "Required?"] ->
+      {{_, _, [{_, _, [value]}]}, _}, acc
+      when value in ["Parameter", "Type", "Description", "Required", "Required?"] ->
         acc
 
       {{_, _, [{_, _, [value]}]}, index}, acc when is_binary(value) ->
