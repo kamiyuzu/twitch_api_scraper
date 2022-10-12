@@ -39,12 +39,12 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
     body_value_rows
     |> Enum.with_index()
     |> Enum.reduce(%{}, fn
-      {{_, _, [value]}, _}, _ when value in ["Name", "Type", "Description"] ->
-        []
+      {{_, _, [value]}, _}, acc when value in ["Name", "Type", "Description"] ->
+        acc
 
-      {{_, _, [{_, _, [value]}]}, _}, _
-      when value in ["Parameter", "Type", "Description", "Required"] ->
-        []
+      {{_, _, [{_, _, [value]}]}, _}, acc
+      when value in ["Parameter", "Type", "Description", "Required", "Required?"] ->
+        acc
 
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, value, acc)
@@ -87,12 +87,18 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.QueryParams do
     end
   end
 
-  defp fix_map(wrong_map) do
-    type = Map.get(wrong_map, :description)
+  defp fix_map(%{description: required} = wrong_map) when required in ["Yes", "yes", "No", "no"] do
     description = Map.get(wrong_map, :real_description)
 
     wrong_map
-    |> Map.put(:type, type)
+    |> Map.put(:description, description)
+    |> Map.delete(:real_description)
+  end
+
+  defp fix_map(wrong_map) do
+    description = Map.get(wrong_map, :real_description)
+
+    wrong_map
     |> Map.put(:description, description)
     |> Map.delete(:real_description)
   end
