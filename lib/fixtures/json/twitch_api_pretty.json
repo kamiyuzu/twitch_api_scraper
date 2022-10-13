@@ -6200,11 +6200,6 @@
         ],
         "body_params": [
           {
-            "description": "Description",
-            "param": "Parameter",
-            "type": "Required"
-          },
-          {
             "description": "Developer-generated identifier for mapping messages to results.",
             "param": "msg_id",
             "type": "yes"
