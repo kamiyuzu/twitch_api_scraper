@@ -6202,12 +6202,12 @@
           {
             "description": "Developer-generated identifier for mapping messages to results.",
             "param": "msg_id",
-            "type": "yes"
+            "type": "string"
           },
           {
             "description": "Message text.",
             "param": "msg_text",
-            "type": "yes"
+            "type": "string"
           }
         ],
         "optional_body_params": [],

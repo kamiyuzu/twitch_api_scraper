@@ -36,9 +36,7 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
       when value in ["Description", "Type", "Parameter", "Required", "Required?"] ->
         []
 
-      {{_, _, [{_, _, [value]}]}, index}, acc
-      when is_binary(value) and
-             value not in ["Description", "Type", "Parameter", "Required", "Required?"] ->
+      {{_, _, [{_, _, [value]}]}, index}, acc when is_binary(value) ->
         put_value(index, value, acc)
 
       {{_, _, description_raw}, index}, acc ->
@@ -56,10 +54,38 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
 
   defp put_value(index, value, acc) do
     case index do
-      0 -> Map.put(acc, :param, String.trim(value))
-      1 -> Map.put(acc, :type, String.trim(value))
-      2 -> Map.put(acc, :description, String.trim(value))
-      3 -> Map.put(acc, :description, String.trim(value))
+      0 ->
+        Map.put(acc, :param, String.trim(value))
+
+      1 ->
+        Map.put(acc, :type, String.trim(value))
+
+      2 ->
+        Map.put(acc, :description, String.trim(value))
+
+      3 ->
+        acc
+        |> Map.put(:real_description, String.trim(value))
+        |> fix_map()
     end
+  end
+
+  defp fix_map(%{description: required} = wrong_map)
+       when required in ["Yes", "yes", "No", "no"] do
+    description = Map.get(wrong_map, :real_description)
+
+    wrong_map
+    |> Map.put(:description, description)
+    |> Map.delete(:real_description)
+  end
+
+  defp fix_map(wrong_map) do
+    type = Map.get(wrong_map, :description)
+    description = Map.get(wrong_map, :real_description)
+
+    wrong_map
+    |> Map.put(:type, type)
+    |> Map.put(:description, description)
+    |> Map.delete(:real_description)
   end
 end
