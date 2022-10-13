@@ -32,7 +32,13 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
       {{_, _, [value]}, index}, acc when is_binary(value) ->
         put_value(index, value, acc)
 
-      {{_, _, [{_, _, [value]}]}, index}, acc when is_binary(value) ->
+      {{_, _, [{_, _, [value]}]}, _}, _
+      when value in ["Description", "Type", "Parameter", "Required", "Required?"] ->
+        []
+
+      {{_, _, [{_, _, [value]}]}, index}, acc
+      when is_binary(value) and
+             value not in ["Description", "Type", "Parameter", "Required", "Required?"] ->
         put_value(index, value, acc)
 
       {{_, _, description_raw}, index}, acc ->
