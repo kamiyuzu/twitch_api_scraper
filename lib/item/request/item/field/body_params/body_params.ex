@@ -54,9 +54,15 @@ defmodule TwitchApiScraper.Item.Request.Item.Field.BodyParams do
 
   defp put_value(index, value, acc) do
     case index do
-      0 -> Map.put(acc, :param, String.trim(value))
-      1 -> Map.put(acc, :type, String.trim(value))
-      2 -> Map.put(acc, :description, String.trim(value))
+      0 ->
+        Map.put(acc, :param, String.trim(value))
+
+      1 ->
+        Map.put(acc, :type, String.trim(value))
+
+      2 ->
+        Map.put(acc, :description, String.trim(value))
+
       3 ->
         acc
         |> Map.put(:real_description, String.trim(value))
