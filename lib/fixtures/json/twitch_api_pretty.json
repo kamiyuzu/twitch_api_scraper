@@ -1050,7 +1050,63 @@
             "type": "integer"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "The prompt for the viewer when redeeming the reward. The maximum length is 200 characters.",
+            "param": "prompt",
+            "type": "string"
+          },
+          {
+            "description": "Is the reward currently enabled, if false the reward won’t show up to viewers. Default: true",
+            "param": "is_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "Custom background color for the reward. Format: Hex with # prefix. Example: #00E5CB.",
+            "param": "background_color",
+            "type": "string"
+          },
+          {
+            "description": "Does the user need to enter information when redeeming the reward. Default: false.",
+            "param": "is_user_input_required",
+            "type": "boolean"
+          },
+          {
+            "description": "Whether a maximum per stream is enabled. Default: false.",
+            "param": "is_max_per_stream_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The maximum number per stream if enabled. Required when any value of is_max_per_stream_enabled is included.",
+            "param": "max_per_stream",
+            "type": "integer"
+          },
+          {
+            "description": "Whether a maximum per user per stream is enabled. Default: false.",
+            "param": "is_max_per_user_per_stream_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The maximum number per user per stream if enabled. Required when any value of is_max_per_user_per_stream_enabled is included.",
+            "param": "max_per_user_per_stream",
+            "type": "integer"
+          },
+          {
+            "description": "Whether a cooldown is enabled. Default: false.",
+            "param": "is_global_cooldown_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The cooldown in seconds if enabled. Required when any value of is_global_cooldown_enabled is included.",
+            "param": "global_cooldown_seconds",
+            "type": "integer"
+          },
+          {
+            "description": "Should redemptions be set to FULFILLED status immediately when redeemed and skip the request queue instead of the normal UNFULFILLED status. Default: false.",
+            "param": "should_redemptions_skip_request_queue",
+            "type": "boolean"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [
@@ -1674,7 +1730,78 @@
         ],
         "authorization": [],
         "body_params": [],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "The title of the reward. The title may contain a maximum of 45 characters and it must be unique amongst all of the broadcaster’s custom rewards.",
+            "param": "title",
+            "type": "string"
+          },
+          {
+            "description": "The prompt for the viewer when they are redeeming the reward. The prompt is limited to a maximum length is 200 characters.",
+            "param": "prompt",
+            "type": "string"
+          },
+          {
+            "description": "The cost of the reward.",
+            "param": "cost",
+            "type": "integer"
+          },
+          {
+            "description": "Custom background color for the reward as a hexadecimal value. Example: #00E5CB.",
+            "param": "background_color",
+            "type": "string"
+          },
+          {
+            "description": "Is the reward currently enabled, if false the reward won’t show up to viewers.",
+            "param": "is_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "Does the user need to enter information when redeeming the reward.",
+            "param": "is_user_input_required",
+            "type": "boolean"
+          },
+          {
+            "description": "Whether a maximum per stream is enabled. Required when any value of max_per_stream is included.",
+            "param": "is_max_per_stream_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The maximum number per stream if enabled. Required when any value of is_max_per_stream_enabled is included.",
+            "param": "max_per_stream",
+            "type": "integer"
+          },
+          {
+            "description": "Whether a maximum per user per stream is enabled. Required when any value of max_per_user_per_stream is included.",
+            "param": "is_max_per_user_per_stream_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The maximum number per user per stream if enabled. Required when any value of is_max_per_user_per_stream_enabled is included.",
+            "param": "max_per_user_per_stream",
+            "type": "integer"
+          },
+          {
+            "description": "Whether a cooldown is enabled. Required when any value of global_cooldown_seconds is included.",
+            "param": "is_global_cooldown_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "The cooldown in seconds if enabled. Required when any value of is_global_cooldown_enabled is included.",
+            "param": "global_cooldown_seconds",
+            "type": "integer"
+          },
+          {
+            "description": "Is the reward currently paused, if true viewers cannot redeem.",
+            "param": "is_paused",
+            "type": "boolean"
+          },
+          {
+            "description": "Should redemptions be set to FULFILLED status immediately when redeemed and skip the request queue instead of the normal UNFULFILLED status.",
+            "param": "should_redemptions_skip_request_queue",
+            "type": "boolean"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [
@@ -3679,7 +3806,8 @@
           "The client ID associated with the access token must have ownership of the game:",
           "Client ID > Organization ID > Game ID"
         ],
-        "body_params": [
+        "body_params": [],
+        "optional_body_params": [
           {
             "description": "An array of unique identifiers of the entitlements to update.Maximum: 100.",
             "param": "entitlement_ids",
@@ -3699,7 +3827,6 @@
             "type": "All entitlements owned by that user with benefits owned by your organization."
           }
         ],
-        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -3976,7 +4103,23 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "User ID of the broadcaster. Required if the segment type is \"developer\" or \"broadcaster\".",
+            "param": "broadcaster_id",
+            "type": "string"
+          },
+          {
+            "description": "Configuration in a string-encoded format.",
+            "param": "content",
+            "type": "string"
+          },
+          {
+            "description": "Configuration version with the segment type.",
+            "param": "version",
+            "type": "string"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [
           "Not applicable."
@@ -5073,7 +5216,23 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "Set to true if the product is in development and not yet released for public use.Default: false.",
+            "param": "in_development",
+            "type": "boolean"
+          },
+          {
+            "description": "Expiration time for the product in RFC3339 format. If not provided, the Bits product will not have an expiration date. Setting an expiration in the past will disable the product.",
+            "param": "expiration",
+            "type": "string"
+          },
+          {
+            "description": "Indicates if Bits product purchase events are broadcast to all instances of an Extension on a channel via the “onTransactionComplete” helper callback.Default: false.",
+            "param": "is_broadcast",
+            "type": "boolean"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [
           "Not applicable."
@@ -7691,7 +7850,18 @@
             "type": "integer"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "Indicates if Channel Points can be used for voting.Default: false",
+            "param": "channel_points_voting_enabled",
+            "type": "boolean"
+          },
+          {
+            "description": "Number of Channel Points required to vote once with Channel Points.Minimum: 0. Maximum: 1000000.",
+            "param": "channel_points_per_vote",
+            "type": "integer"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -8437,7 +8607,13 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "ID of the winning outcome for the Prediction. This parameter is required if status is being set to RESOLVED.",
+            "param": "winning_outcome_id",
+            "type": "string"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [],
         "query_params": [],
@@ -9091,7 +9267,23 @@
             "type": "boolean"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "Duration of the scheduled broadcast in minutes from the start_time.Default: 240.",
+            "param": "duration",
+            "type": "string"
+          },
+          {
+            "description": "Game/Category ID for the scheduled broadcast.",
+            "param": "category_id",
+            "type": "string"
+          },
+          {
+            "description": "Title for the scheduled broadcast.Maximum: 140 characters.",
+            "param": "title",
+            "type": "string"
+          }
+        ],
         "optional_query_params": [],
         "pagination": [
           "Forward pagination."
@@ -9238,7 +9430,8 @@
         "authorization": [
           "User OAuth TokenRequired scope: channel:manage:schedule"
         ],
-        "body_params": [
+        "body_params": [],
+        "optional_body_params": [
           {
             "description": "Start time for the scheduled broadcast specified in RFC3339 format.",
             "param": "start_time",
@@ -9270,7 +9463,6 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [],
         "optional_query_params": [],
         "pagination": [
           "None."
@@ -10326,7 +10518,13 @@
             "type": "string"
           }
         ],
-        "optional_body_params": [],
+        "optional_body_params": [
+          {
+            "description": "Description of or comments on the marker. Max length is 140 characters.",
+            "param": "description",
+            "type": "string"
+          }
+        ],
         "optional_query_params": [
           {
             "description": "None",
@@ -11003,14 +11201,14 @@
           "."
         ],
         "authorization": [],
-        "body_params": [
+        "body_params": [],
+        "optional_body_params": [
           {
             "description": "A list of IDs that identify the tags to apply to the channel. You may specify a maximum of five tags.To remove all tags from the channel, set tag_ids to an empty array.",
             "param": "tag_ids",
             "type": "string array"
           }
         ],
-        "optional_body_params": [],
         "optional_query_params": [
           {
             "description": "None",

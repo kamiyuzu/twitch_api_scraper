@@ -47,10 +47,16 @@ defmodule TwitchApiScraper.Item.Request.Parser do
       [{requests_value, _}] ->
         requests_value
 
-      [{query_params_optional, _}, {query_params, _}] ->
+      [{:optional_query_params, _}, {:query_params, _}] ->
         case String.contains?(value, "Optional") do
-          false -> query_params
-          true -> query_params_optional
+          false -> :query_params
+          true -> :optional_query_params
+        end
+
+      [{:body_params, _}, {:optional_body_params, _}] ->
+        case String.contains?(value, "Optional") do
+          false -> :body_params
+          true -> :optional_body_params
         end
 
       [] ->
@@ -86,10 +92,17 @@ defmodule TwitchApiScraper.Item.Request.Parser do
       body_params: [
         "Required Body Parameter",
         "Required Body Parameters",
-        "Body Parameter",
-        "Body Parameters"
+        "Request Body Parameters",
+        "Request Body Parameter",
+        "Body Parameters",
+        "Body Parameter"
       ],
-      optional_body_params: ["Optional Body Parameter"],
+      optional_body_params: [
+        "Optional Body Parameters",
+        "Optional Body Parameter",
+        "Optional Body Values",
+        "Optional Body Value"
+      ],
       optional_query_params: ["Optional Query Parameter"],
       pagination: ["Pagination Support"],
       query_params: ["Required Query Parameter", "Query Parameter"],
