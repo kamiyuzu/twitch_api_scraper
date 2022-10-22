@@ -12,6 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT }}
     - name: Set up Elixir
       uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
       with:
@@ -54,15 +56,9 @@ jobs:
       run: mix dialyzer --halt-exit-status || exit 1
     - name: Run mix task
       run: ./export.sh
-    - name: Simple commit
+    - name: Automated commit
       if: ${{ success() }}
-      uses: zwaldowski/git-commit-action@v1
+    - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        working_directory: . # optional, default is .
-        commit_message: Automatic commit by github periodic action # default is Automated commit
-    - name: Push changes
-      if: ${{ success() }}
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        push_options: --force
         branch: "main"
