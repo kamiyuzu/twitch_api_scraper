@@ -58,7 +58,7 @@ jobs:
       run: ./export.sh
     - name: Automated commit
       if: ${{ success() }}
-    - uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
         push_options: --force
         branch: "main"
